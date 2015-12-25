@@ -226,4 +226,3 @@ function processEnvironment() {
 
 return processEnvironment();
 ```
-
