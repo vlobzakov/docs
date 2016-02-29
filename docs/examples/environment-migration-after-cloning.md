@@ -115,7 +115,6 @@
 		}
 	}
 }
-
 ```
 
 
@@ -125,7 +124,7 @@ JS script for executing actions with the newly cloned environment
  * The script is subscribed on the onAfterClone event and will be executed after old environment cloning.
  */
 
-import com.hivext.api.environment.Environment;
+mport com.hivext.api.environment.Environment;
 import com.hivext.api.environment.File;
 import com.hivext.api.Response;
 
@@ -193,7 +192,8 @@ function configureAppSettings(oClonedEnvInfo) {
  * @param {object} oClonedEnvInfo - meta information about the cloned environment
  * @returns {Response}
  */
-function migrateEnv(oEnvService, oClonedEnvInfo) {
+
+n migrateEnv(oEnvService, oClonedEnvInfo) {
     var sHardwareNodeGroup;
 
     // convert environment info into JSON format
@@ -208,7 +208,6 @@ function migrateEnv(oEnvService, oClonedEnvInfo) {
         isOnline            : true
     });
 }
-
 /**
  * Main method for executing actions with cloned environment
  * @returns {Response}

@@ -59,6 +59,7 @@ pages:
 #current_version: master
 versions:
    releases:
+      - 0.7
       - 0.6
       - 0.5
 
