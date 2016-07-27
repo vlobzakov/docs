@@ -139,13 +139,23 @@ pre code.example {
   * Jelastic correspondence
  */
  
- table, th, td, tr {
-     border: 2px solid grey;
-...	...
-@@ -152,3 +155,33 @@ th, td {
-    text-align: center;
-    font-size: 13px;
- }
+table, th, td, tr {
+    border: 2px solid grey;
+}
+
+#jel {
+   background-color: #E8E8E8
+}
+
+#table-head {
+   font-size: 17px;
+   background-color: #c4c4c4;
+}
+
+th, td {
+   text-align: center;
+   font-size: 13px;
+}
  
 /*
  * Additions specific to the search functionality provided by MkDocs
