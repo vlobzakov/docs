@@ -242,14 +242,14 @@ Example:
 }
 ```
 
-##User defined
-User defined placeholders can be predefined via **globals variables**. It will define before install manifest. Optional value, only object.  
+##Custom global placeholders
+User defined placeholders can be predefined via **globals declaration**. It will define before install manifest. Optional value, only object.  
 For example:
 ```
 {
 	"jpsType": "update",
 	"application": {
-		"name": "Global variables",
+		"name": "Global declaration",
 		"env": {},
 		"globals": {
 			"value1": 1,
