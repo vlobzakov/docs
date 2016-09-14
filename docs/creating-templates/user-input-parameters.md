@@ -72,7 +72,151 @@
     - `regex` *[optional]* - A constructor for the JavaScript RegExp object to be tested against the field value during validation (defaults to null). If the test fails, the field will be marked invalid using regexText.
     - `regexText` *[optional]* - The error text to display if regex is used and the test fails during validation (defaults to '')                               
 
- 
+##Custom buttons
+Custom buttons can be implemented in add-ons. They will execute procedures which are predefined in manifest.  
+
+![traffic-manager](/img/traffic-manager.jpg)  
+
+Add-ons tab button here:
+![addon tab](/img/add-on_tab.jpg)
+
+!!! note
+> JPS should include required field `targetNodes`. In opposite case add-on will be hidden in add-ons tab after installation.  
+
+Button creating template:
+```
+{
+  "jpsType": "update",
+  "application": {
+    "name": "Custom buttons",
+    "env": {},
+    "targetNodes": {
+      "nodeGroup": "bl"
+    },
+    "procedures": ["..."],
+    "buttons": [
+      {
+        "confirmText": "Custom confirm text",
+        "loadingText": "Load text while waiting",
+        "procedure": "{String}",
+        "caption": "Configure",
+        "successText": "Configuration saved successfully!",
+        "href": "http://google.com"
+      }
+    ]
+  }
+}
+```
+- `buttons` - buttons array 
+- `confirmText` - user custom confirm text. Default value *"Are you sure?"*. Optional   
+It will display firstly after button click action:  
+![confirm](/img/confirm.jpg)      
+- `loadingText` - user custom text while loading and applying actions. Default is *"Applying..."*. Optional    
+![loadingText](/img/loadingText.jpg)      
+- `procedure` - procedure name which will be executed. Procerude's body describes in [*procedure* section](/reference/procedures/). Type is String. Required.   
+- `caption` - button title.  
+![caption](/img/caption.jpg)   
+- `successText` - success message when action was performed successfull  
+![successText](/img/successText.jpg)     
+- `href` - external link, will open in new browser tab. It will execute if `settings` field is absent.  
+In this case `procedure` wont be executed. Optional.
+- `settings` - custom form id. Default - *main*. More details [here](/creating-templates/user-input-parameters/#custom-settings)    
+
+Fields bellow can be enabled in case when field `settings` presents:
+```
+{
+  "jpsType": "update",
+  "application": {
+    "name": "Custom buttons",
+    "env": {},
+    "targetNodes": {
+      "nodeGroup": "bl"
+    },
+    "procedures": [
+      "..."
+    ],
+    "buttons": [
+      {
+        "confirmText": "Custom confirm text",
+        "loadingText": "Load text while waiting",
+        "procedure": "{String}",
+        "caption": "Configure",
+        "successText": "Configuration saved successfully!",
+        "settings": "config",
+        "title": "Title",
+        "submitButtonText": "Button Text",
+        "logsPath": "/var/log/add-on-action.log",
+        "logsNodeGroup": "cp"
+      }
+    ]
+  }
+}
+```
+- `title` - custom dialog title. If `title` is absent `caption` will be applied.    
+Also same value is a dialog title when option `settings` is available.
+- `submitButtonText` - button text in opened dialog. Default *Apply*   
+![submitButtonText](/img/submitButtonText.jpg)
+- `logsPath` - visible button for showing logs in defined path  
+![logsPath](/img/logsPath.jpg)
+- `logsNodeGroup` - [nodeGroup](/reference/container-types/#containers-by-groups-nodegroup) layer where logging path will be opened   
+
+##Custom menus  
+Menu is a custom action list where every action can execute different procedures by name.   
+![menu](/img/menu.jpg)   
+There is one default menu - Uninstall. It will call procedures from [application lavel](/reference/events/#application-level-events) if they are.  
+There are same properties list as in [Custom buttons](/creating-templates/user-input-parameters/#custom-buttons).  
+
+##Custom settings
+Settings section can include few custom forms. Default settings form id - *main*.   
+For example:  
+```
+{
+  "jpsType": "update",
+  "application": {
+    "name": "Custom buttons",
+    "env": {},
+    "targetNodes": {
+      "nodeGroup": "bl"
+    },
+    "procedures": [
+      "..."
+    ],
+    "settings": {
+      "main": {
+        "fields": [
+          {
+            "type": "text",
+            "caption": "Main form"
+          }
+        ]
+      },
+      "config": {
+        "fields": [
+          {
+            "type": "text",
+            "caption": "Custom form from button action"
+          }
+        ]
+      }
+    },
+    "buttons": [
+      {
+        "settings": "config",
+        "procedure": "customProc",
+        "caption": "Configure",
+        "submitButtonText": "Button Text",
+        "logsPath": "/var/lib/jelastic/keys/111"
+      }
+    ]
+  }
+}
+```
+While installation *main* `settings` form will show.   
+![settingMain](/img/settingsMain.jpg)   
+After click button *Configure* from add-ons tab settings form *config* will show.   
+![settingCustom](/img/settingsCustom.jpg)   
+
+
 ##Supported fields:
 ###string     
 Basic text field.
@@ -390,3 +534,108 @@ Functionality provides an opportunity to pass additional parameters.
 - `popupHeight` - height zise. Optional
 - `popupCallbackEvent` - event handler
 - `params` - parameters for send in POST request to `url` source.
+###displayfield
+(`spacer` an alias)   
+A display-only text field which is not validated and not submitted.
+![displayfield](/img/displayfield.jpg)
+```
+{
+  "fields": [
+    {
+      "caption": "Displayfield",
+      "type": "displayfield",
+      "name": "displayfield",
+      "markup": "display"
+    }
+  ]
+}
+```
+- `caption` - field Label caption. Optional.
+- `name` - field name. Optional.
+- `markup` - a value to initialize this field with (defaults to undefined).
+###spinner
+Enhance a text input for entering numeric values, with up/down buttons and arrow key handling.
+![spinner](/img/spinner.jpg)
+```
+{
+  "fields": [
+    {
+      "type": "spinner",
+      "name": "spinner",
+      "caption": "Spinner",
+      "min": 1,
+      "max": 10,
+      "increment": 2,
+      "decimanPrecision": ""
+    }
+  ]
+}
+```
+- `name` - field name. Optional.
+- `caption` - field Label caption. Optional.
+- `min` - minimal spinner value
+- `max` - max spinner value
+- `increment` - increment value
+- `decimanPrecision` - precision value
+###numberpicker
+(`number-picker` an alias)
+Textfield with number validation in a range.
+![numberpicker](/img/numberpicker.jpg)
+```
+{
+  "fields": [
+    {
+      "type": "numberpicker",
+      "name": "numberpicker",
+      "caption": "Numberpicker",
+      "min": 3,
+      "max": 10,
+      "editable": true
+    }
+  ]
+}
+```
+- `name` - field name. Optional.
+- `caption` - field Label caption. Optional.
+- `min` - minimal spinner value
+- `max` - max spinner value
+- `editable` - boolean. Enable editing `numberpicker` field. Default *false*. Optional.
+###hostpicker
+(host-pickeran alias)
+Drop-down menu with environments hosts.
+![hostpicker](/img/hostpicker.jpg)
+```
+{
+  "fields": [
+    {
+      "type": "hostpicker",
+      "name": "hostpicker",
+      "caption": "Hostpicker",
+      "editable": true,
+      "valueField": "host"
+    }
+  ]
+}
+```
+- `name` - field name. Optional.
+- `caption` - field Label caption. Optional.
+- `editable` - boolean. Enable editing `envlist` field. Default *false*. Optional.
+- `valueField` - Optional.
+###toggle
+Toggle element is a switch between two values
+![toggle](/img/toggle.jpg)
+```
+{
+  "fields": [
+    {
+      "type": "toggle",
+      "name": "toggle",
+      "caption": "Toggle",
+      "value": true
+    }
+  ]
+}
+```
+- `name` - field name. Optional.
+- `caption` - field Label caption. Optional.
+- `value` - enabling/disabling toggle value. Default is *false*
