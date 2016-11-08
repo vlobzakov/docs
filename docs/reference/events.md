@@ -83,6 +83,9 @@ It’s also possible to bind the extension’s execution to the onUninstall even
   }
 }
 ```                              
+
+Events `onInstall`, `onUninstall`, `onBeforeDelete`, `onAfterDelete` can be executed once. Other events can be used more then one time.
+
 ### BeforeChangeTopology
 ### AfterChangeTopology
 ### BeforeRestartNode
