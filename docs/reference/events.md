@@ -91,7 +91,7 @@ It’s also possible to bind extension’s execution to the *onUninstall* event 
 ```                              
 
 ##Event execution rules
-- events `onInstall`, `onUninstall`, `onBeforeDelete` (delete environment), `onAfterDelete` can be executed once. Other events can be used more then one time.   
+- events `Install`, `Uninstall`, `BeforeDelete` (delete environment), `AfterDelete` can be executed once. Other events can be used more then one time.   
 - events `ScaleIn`, `ScaleOut`, `ServiceScaleOut` will be executed only once while any nodes count will be added/removed. At the same time action events `addNode`, `removeNode` will be executed as many times as nodes will be added/removed.   
 - event `cloneNodes` will be executed so many as nodeGroups should be scaled   
 - events `UnlinkDockerNodes`, `LinkDockerNodes`, `SetDockerEnvVars`, `SetDockerEntryPoint`, `SetDockerRunCmd`, `AddDockerVolume`, `RemoveDockerVolume` can be executed once while action `changeTopology`
