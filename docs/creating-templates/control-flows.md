@@ -102,7 +102,7 @@ Events are `onAfterScaleIn` and `onAfterScaleOut` will executed after add or rem
 ```
 {
   "forEach(env.nodes)": [{
-    "executeShellCommands": {
+    "execCmd": {
 	  "nodeId": "${@i.id}",
 		"commands": [
 	      "echo ${@i.address} > /tmp/example.txt"
