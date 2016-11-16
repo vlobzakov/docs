@@ -1,10 +1,10 @@
 # Events
 
 Any action, available to be performed by means of API (including custom users’ scripts running), should be bound to some event, i.e. executed as a result of this event occurrence.
-Each event refers to a particular entity. For example, the entry point for executing any action with application is the onInstall event.
+Each event refers to a particular entity. For example, the entry point for executing any action with application is the *onInstall* event.
 <br>
-Subscription to a particular application lifecycle event (e.g. topology changing) can be done via [Environment Level Events](#environment-level-events).
-It’s also possible to bind extension execution to the onUninstall event - in such a way, you can implement custom logic of this extension removal from an environment.
+Subscription to a particular application lifecycle event (e.g. topology change) can be done via [Environment Level Events](#environment-level-events).
+It’s also possible to bind extension execution to the *onUninstall* event - in such a way, you can implement custom logic of this extension removal from an environment.
 
 ## Application Level Events
 ```
@@ -91,11 +91,11 @@ It’s also possible to bind extension execution to the onUninstall event - in s
 }
 ```                              
 ##Event execution rules
-- Such events as Install & Uninstall application, as well as BeforeDelete and AfterDelete ones (which refer to an environment deletion) can be executed just once. Other events can be used as much times as required.
-- The ScaleIn, ScaleOut and ServiceScaleOut events are called once upon any node count change. Herewith, count of the addNode or removeNode actions’ execution refer to the number of nodes that should be added/removed per a single scaling event.
-- For application server, load balancer and VPS node layers, the cloneNodes procedure is executed each time the node group is scaled out
-- UnlinkDockerNodes, LinkDockerNodes, SetDockerEnvVars, SetDockerEntryPoint, SetDockerRunCmd, AddDockerVolume  and RemoveDockerVolume events can be executed only once per a single changeTopology action
-- The StartDockerService event can be called only once while performing the changeTopology and createEnvironment scaling actions.
+- Such events as *Install* & *Uninstall* application, as well as *BeforeDelete* and *AfterDelete* ones (which refer to an environment deletion) can be executed just once. Other events can be used as much times as required.
+- The *ScaleIn*, *ScaleOut* and *ServiceScaleOut* events are called once upon any node count change. Herewith, count of the *addNode* or *removeNode* actions’ execution refer to the number of nodes that should be added/removed per a single scaling event.
+- For application server, load balancer and VPS node layers, the *cloneNodes* procedure is executed each time the node group is scaled out
+- *UnlinkDockerNodes*, *LinkDockerNodes*, *SetDockerEnvVars*, *SetDockerEntryPoint*, *SetDockerRunCmd*, *AddDockerVolume* and *RemoveDockerVolume* events can be executed only once per a single *changeTopology* action
+- The *StartDockerService* event can be called only once while performing the *changeTopology* and *createEnvironment* scaling actions.
 
 ## Event parameters and response placeholders
 ### onBeforeChangeTopology
