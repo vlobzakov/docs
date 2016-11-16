@@ -1,9 +1,10 @@
 # Events
 
-Any action, available to be performed by means of API (including custom users’ scripts running), should be binded to some event, i.e. executed as a result of this event occurrence.
-Each event belongs to a particular entity. For example, the entry point for performing any actions with application is the application’s event onInstall.
-Subscription to the particular application’s lifecycle events (e.g. topology changes) can be done via [Environment Level Events](#environment-level-events).
-It’s also possible to bind the extension’s execution to the onUninstall event and in such a way implement the included to it custom logic of this extension removal from an environment.
+Any action, available to be performed by means of API (including custom users’ scripts running), should be bound to some event, i.e. executed as a result of this event occurrence.
+Each event refers to a particular entity. For example, the entry point for executing any action with application is the onInstall event.
+<br>
+Subscription to a particular application lifecycle event (e.g. topology changing) can be done via [Environment Level Events](#environment-level-events).
+It’s also possible to bind extension execution to the onUninstall event - in such a way, you can implement custom logic of this extension removal from an environment.
 
 ## Application Level Events
 ```
@@ -16,8 +17,8 @@ It’s also possible to bind the extension’s execution to the onUninstall even
 }
 ```
 
-### Install
-### Uninstall
+### onInstall
+### onUninstall
 
 ## Environment Level Events
 ```
