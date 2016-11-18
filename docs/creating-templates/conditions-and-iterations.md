@@ -2,7 +2,7 @@
 
 ##Iterations
 <b>ForEach.</b>
-Iterable object map:
+The main iterable object is ForEach. Its map:
 
 ```
 {
@@ -21,10 +21,11 @@ Iterable object map:
   "this": {}
 }
 ```
-- `settings` - fields values predefined at [user setting form](http://docs.cloudscripting.local/creating-templates/user-input-parameters/) (Optional).
-- `license` - parameters from prepopulate action (Optional).
-- `event` - object of parameters from [events](http://docs.cloudscripting.local/reference/events/). This parameters separate on before and after event parameters (Optional). So [actions](/reference/actions/) can be used before and after executing event.
-- `this` - parameters object is sent with procedures name(Optional). Mode details about `this` parameter is [here](/reference/placeholders/#procedure-placeholders)
+where    
+- `settings [optional]` - fields values predefined within a [user setting form](http://docs.cloudscripting.com/creating-templates/user-input-parameters/)   
+- `license [optional]` - link to fetch parameters specified within [prepopulate](http://docs.cloudscripting.com/creating-templates/user-input-parameters/) custom script. It enables to customize default field values and can be further initialized through [placeholders](http://docs.cloudscripting.com/reference/placeholders/) `$(license.{any_name}` within a manifest.   
+- `event [optional]` - object entity with [event](http://docs.cloudscripting.com/reference/events/) parameters.  Can be of two types that allows initiation of a particular [action](http://docs.cloudscripting.com/reference/actions/) before and after event execution   
+- `this [optional]` - parameters object to be transmitted within the procedure body. See [more details](http://docs.cloudscripting.com/reference/placeholders/#procedure-placeholders) on this parameter.   
 
 Iteration can be executed by `env.nodes`, `nodes`, `env.contexts` and `env.extdomains` objects:
 
@@ -41,7 +42,7 @@ Iteration can be executed by `env.nodes`, `nodes`, `env.contexts` and `env.extdo
   ]
 }
 ```
-
+where    
 - `@i` - default iterator name
 
 ```
@@ -57,11 +58,11 @@ Iteration can be executed by `env.nodes`, `nodes`, `env.contexts` and `env.extdo
   ]
 }
 ```
+where  
+- `env.contexts` -  list of contexts (applications) deployed to environment    
+- `env.extdomains` - bound external domains 
 
-- `env.contexts` - deployed in environment contexts
-- `env.extdomains` - binded external domains 
-
-Full placeholders list [here](/reference/placeholders/)
+See the [full placeholders list](/reference/placeholders/)
 
 Scaling nodes example:
 ```
@@ -94,10 +95,9 @@ Scaling nodes example:
 	}
 }
 ```
-In `execCmd` action compute nodes addresses are rewrited in balancer node and reload nginx service.
-Events are `onAfterScaleIn` and `onAfterScaleOut` will executed after add or remove compute node.
+As a result of execCmd, compute nodes internal IP addresses are rewritten within balancer configs and *NGINX* balancer node is reloaded. `onAfterScaleIn` and `onAfterScaleOut` events are executed immediately after adding or removing a compute node.
 
-###Iteration by all nodes in environment:
+###Iteration by all nodes in environment
 
 ```
 {
@@ -112,7 +112,7 @@ Events are `onAfterScaleIn` and `onAfterScaleOut` will executed after add or rem
 }
 ```
 
-###Iteration by compute nodes with custom iterator name:
+###Iteration by compute nodes with custom iterator name
 ```
 {
   "forEach(cp:nodes.cp)": {
@@ -127,8 +127,8 @@ Events are `onAfterScaleIn` and `onAfterScaleOut` will executed after add or rem
   }
 }
 ```
-
-- `@cp` - custom iterator name (optional)
+where 
+- `@cp [optional]` - custom iterator name
 
 Custom iterator name can be used for nesting cycles one into another:
 ```
@@ -147,6 +147,7 @@ Custom iterator name can be used for nesting cycles one into another:
   ]
 }
 ```
+where
 - `@` iterator number
 
-In this case every environment node will have only one conjunction by nodeId.
+In this case every environment node will have only one conjunction by node ID.
