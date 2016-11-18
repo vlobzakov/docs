@@ -25,7 +25,7 @@ where
 - `settings [optional]` - fields values predefined within a [user setting form](http://docs.cloudscripting.com/creating-templates/user-input-parameters/)   
 - `license [optional]` - link to fetch parameters specified within [prepopulate](http://docs.cloudscripting.com/creating-templates/user-input-parameters/) custom script. It enables to customize default field values and can be further initialized through [placeholders](http://docs.cloudscripting.com/reference/placeholders/) `$(license.{any_name}` within a manifest.   
 - `event [optional]` - object entity with [event](http://docs.cloudscripting.com/reference/events/) parameters.  Can be of two types that allows initiation of a particular [action](http://docs.cloudscripting.com/reference/actions/) before and after event execution   
-- `this [optional]` - parameters object to be transmitted within the procedure body. See [more details](http://docs.cloudscripting.com/reference/placeholders/#procedure-placeholders) on this parameter.   
+- `this [optional]` - parameters object to be transmitted within the procedure body. [See the full list of available placeholders](http://docs.cloudscripting.com/reference/placeholders/#procedure-placeholders) on this parameter.   
 
 Iteration can be executed by `env.nodes`, `nodes`, `env.contexts` and `env.extdomains` objects:
 
@@ -62,7 +62,7 @@ where
 - `env.contexts` -  list of contexts (applications) deployed to environment    
 - `env.extdomains` - bound external domains 
 
-See the [full placeholders list](/reference/placeholders/)
+[See the full placeholders list](/reference/placeholders/)
 
 Scaling nodes example:
 ```

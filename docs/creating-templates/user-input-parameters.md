@@ -396,11 +396,11 @@ where
 - `caption` *[optional]* - field label.   
 - `values` - checkboxes ("key":"value")  
 - `hideLabel` *[optional][boolean]* - shows/hides field label. The default value is *false*.  
-###radio-fieldset   
-The groupping of the `radio` elements with the `showIf` function.    
+###radio-fieldset    
+The groupping of the `radio` elements with the `showIf` function.     
 !!! note
     The *hideLabel* boolean value is always *true* for this field   
-![text](/img/radio-fieldset.jpg)  
+![text](/img/radio-fieldset.jpg)   
 ```
 {
   "fields": [
@@ -434,7 +434,8 @@ The groupping of the `radio` elements with the `showIf` function.
   ]
 }
 ```
-- `name` *[required]* - name of the `radio-fieldset` element(for other elements it’s not required)   
+where   
+- `name` *[required]* - name of the `radio-fieldset` element(for other elements it’s not required)    
 - `default` *[optional]* - selected field upon opening the form  
 - `values` - checkboxes ("key":"value")  
 - `showIf` - conditional object that shows predefined elements by clicking on the `radio-fieldset` elements. Predefined elements can be vary.  
@@ -714,4 +715,4 @@ The toggle element is a switch between two values
 where  
 - `name` *[optional]* - name of the field  
 - `caption` *[optional]* - field label    
-- `value` *[boolean]* - enables/disables toggle value. The default value is *false*  
+- `value` *[boolean]* - enables/disables toggle value. The default value is *false*   
