@@ -697,7 +697,7 @@ where
 - `editable` *[optional][boolean]* - enables/disables editing the `envlist` field. The default value is *false*  
 - `valueField` *[optional]*
 ###toggle
-The toggle element is a switch between two values
+The toggle element is a switch between two values  
 ![toggle](/img/toggle.jpg)
 ```
 {
