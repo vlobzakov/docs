@@ -2,7 +2,7 @@
 
 ##Iterations
 <b>ForEach.</b>
-The main iterable object is ForEach. Its map:
+The main iterable object is *ForEach*. Its map:
 
 ```
 {
@@ -97,6 +97,8 @@ Scaling nodes example:
 ```
 As a result of execCmd, compute nodes internal IP addresses are rewritten within balancer configs and *NGINX* balancer node is reloaded. `onAfterScaleIn` and `onAfterScaleOut` events are executed immediately after adding or removing a compute node.
 
+Nested conditions:   
+  
 ###Iteration by all nodes in environment
 
 ```
@@ -130,6 +132,7 @@ As a result of execCmd, compute nodes internal IP addresses are rewritten within
 where 
 - `@cp [optional]` - custom iterator name
 
+Checking balancer stack type:
 Custom iterator name can be used for nesting cycles one into another:
 ```
 {

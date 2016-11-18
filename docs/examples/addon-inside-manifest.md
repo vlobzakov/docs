@@ -1,5 +1,6 @@
 #Install add-on inside manifest
 
+This manifest provides an environment, that is handled with the help of <b>Apache PHP</b> aplication server, is powered by <b>PHP 7</b> engine version and has external IP address attached. Subsequently, Public IP address can be detached with the help of the <b>Add-on</b> button.
 This manifest install simple environment with one php apache node, php engine 7 and attach external IP address on it.
 Deatache external IP address customer can via add-on button.
 ```example
@@ -49,7 +50,10 @@ Deatache external IP address customer can via add-on button.
 	}
 }
 ```
+   
+As a result, environment with the above-specified topology is successfully created. In order to disable the external IP feature, click the <b>Uninstall</b> button located within the <b>Add-ons</b> section.   
 
+![addoninstall](/img/addon-install.jpg)
 Environment will be installed successfully. External IP address will be attached.
 In addon button will be new button where you can deattach your external ip address:   
 ![addoninstall](/img/addon-install.jpg)
