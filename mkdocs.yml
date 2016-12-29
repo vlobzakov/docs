@@ -1,6 +1,6 @@
 site_name: Cloud Scripting
 site_url: http://
-copyright: Copyright &copy; 2015, Jelastic, Inc.
+copyright: Copyright &copy; Jelastic, Inc.
 
 #use_directory_urls: true
 use_absolute_urls: true
@@ -31,6 +31,9 @@ pages:
 
 # Jelastic & CloudScripting correspondence
 - Jelastic & CS correspondence: jelastic-cs-correspondence.md
+
+#Release Notes
+- Release Notes: releasenotes.md
 
 # Creating Templates
 - Creating Templates:
@@ -66,4 +69,3 @@ versions:
       - 0.8
       - 0.9
       - 1.0
-
