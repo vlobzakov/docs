@@ -32,9 +32,6 @@ pages:
 # Jelastic & CloudScripting correspondence
 - Jelastic & CS correspondence: jelastic-cs-correspondence.md
 
-#Release Notes
-- Release Notes: releasenotes.md
-
 # Creating Templates
 - Creating Templates:
    - Template Basics: creating-templates/template-basics.md
