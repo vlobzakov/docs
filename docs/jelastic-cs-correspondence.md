@@ -4,9 +4,12 @@ The table below displays depends between installed Cloud Scripting and Jelastic 
 
 You can find Jelastic platform version at [Jelastic Cloud](https://jelastic.cloud/).<br>
 Cloud Scripting version can be choosen at the bottom of the page.
-<table style="width:100%">
+<table class="corresp" style="width:100%">
     <tr id="cs">
 	<th id="table-head">CS</th>
+	    <td>1.3</td>
+        <td>1.2</td>
+	    <td>1.1</td>
 	    <td>1.0</td>
 	    <td>0.99</td>
 	    <td>0.9</td>
@@ -18,7 +21,10 @@ Cloud Scripting version can be choosen at the bottom of the page.
     </tr>
     <tr id="jel">
         <th id="table-head">Jelastic</th>
-        <td>4.9.6</td>
+        <td>5.1, 5.2</td>
+        <td>5.0.6</td>
+        <td>5.0.5</td>
+        <td>4.10</td>
         <td>4.9.5</td>
         <td>4.8</td>
         <td>4.6, 4.7</td>
