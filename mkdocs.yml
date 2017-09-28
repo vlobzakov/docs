@@ -2,69 +2,61 @@ site_name: Cloud Scripting
 site_url: http://
 copyright: Copyright &copy; Jelastic, Inc.
 
-#use_directory_urls: true
 use_absolute_urls: true
 include_search: true
 theme_center_lead: false
 
-#theme: readthedocs
-theme_dir: './theme/readthedocs'
-#theme: slate
-#theme: highlight.js
 
-markdown_extensions: [admonition, toc, tables]
-                      #attention
-                      #caution
-                      #danger
-                      #error
-                      #hint
-                      #important
-                      #note
-                      #tip
-                      #warning
+theme_dir: './theme/readthedocs'
+repo_url: 'https://github.com/cloudscripting/docs/edit/1.4/docs/'
+
+markdown_extensions:
+  - admonition
+  - toc
+  - tables
+  - markdown.extensions.myextension
+  - markdown.extensions.admonition
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc(permalink=true)
+  - pymdownx.arithmatex
+  - pymdownx.betterem(smart_enable=all)
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tasklist(custom_checkbox=true)
+  - pymdownx.tilde
 
 pages:
-- Overview: index.md
 
-# Quick Start
-- Quick Start: quick-start.md
+- GETTING STARTED:
+   - Overview: index.md
+   - Quick Start: quick-start.md
 
-# Jelastic & CloudScripting correspondence
-- Jelastic & CS correspondence: jelastic-cs-correspondence.md
+- Creating Manifest:
+   - Basic Configs: creating-manifest/basic-configs.md
+   - Specifying Target Container: creating-manifest/selecting-containers.md
+   - Actions: creating-manifest/actions.md
+   - Events: creating-manifest/events.md
+   - Placeholders: creating-manifest/placeholders.md
+   - Conditions and Iterations: creating-manifest/conditions-and-iterations.md
+   - Custom Scripts: creating-manifest/custom-scripts.md
+   - Add-Ons: creating-manifest/addons.md
+   - Custom Responses: creating-manifest/handling-custom-responses.md
+   - Visual Settings: creating-manifest/visual-settings.md
 
-# Creating Templates
-- Creating Templates:
-   - Template Basics: creating-templates/template-basics.md
-   - Writing Scripts: creating-templates/writing-scripts.md
-   - Selecting Containers For Your Actions: creating-templates/selecting-containers.md
-   - Getting User Input: creating-templates/user-input-parameters.md
-   - Conditions and Iterations: creating-templates/conditions-and-iterations.md
+- Samples:
+   - Overview: samples.md
 
-# Troubleshooting
 - Troubleshooting: troubleshooting.md
 
-# Reference
-- Reference:
-   - Actions: reference/actions.md
-   - Events: reference/events.md
-   - Procedures: reference/procedures.md
-   - Placeholders: reference/placeholders.md
-   - Containers by Groups and Types: reference/container-types.md
-   - Docker Actions: reference/docker-actions.md
+- CS vs Jelastic Versions: jelastic-cs-correspondence.md
 
-# Examples
-- Examples:
-   - Vertical Scaling: examples/vertical-scaling.md
-   - Horizontal Scaling: examples/horizontal-scaling.md
-   - Using Docker&reg;: examples/using-docker.md
-   - Wordpress Cluster: examples/wordpress-cluster.md
-   - Migration&Cloning Environment: examples/environment-migration-after-cloning.md
-   - Two Envs in defferent regions: examples/two-envs-in-diff-regions.md
-   - Add-on install inside manifest: examples/addon-inside-manifest.md
-   - Mount Data Storage: examples/mount-data-storage.md
-
-- Change Log: changelog.md
-#current_version: master
 versions:
    releases:
       - 0.9
@@ -74,3 +66,4 @@ versions:
       - 1.2
       - 1.3
       - 1.4
+      - 1.5
