@@ -3,7 +3,6 @@ In Jelastic the following *nodeTypes* can be clusterized with help of built-in *
   * *mysql*, *mariadb*
   * *glassgish*, *wildgly*, *payara*  
   * *couchbase* 
-  * *storage*
 
 *Auto-Clustering* can be enabled either using *Auto-Clustering* switch at the dashboard:  
 ![autoclustering-switch](/img/autoclustering-switch.png)  
@@ -12,7 +11,12 @@ or via jps manifest with `cluster` parameter.
 ### cluster parameter
 To enable *Auto-Clustering* the `cluster` parameter is used as:  
   * *boolean* value - *true* invokes cluster creation with default configuration parameters  
-   (default topology that will be created for *mysql*/*mariadb* is **master-slave** replication cluster with 2 nodes of HA ProxySQL load balancer in front of):  
+  
+  !!!note  
+  
+    * Default topology that will be created for the nodeTypes *mysql* and *mariadb* is **[master-slave](https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/)** replication cluster with 2 nodes of HA ProxySQL load balancer in front of.  
+    * The *wildgly* cluster is created in [Managed Domain Mode](https://jelastic.com/blog/wildfly-managed-domain-in-containers-auto-micro-clustering-and-scaling/) with topology that comrises one Domain Controller node and Worker nodes. Number of Worker nodes is defined by *[count](basic-configs/#nodes-definition)* parameter.  
+    * The *payara*/*glassfish* cluster is created with topology that comrises one [DAS node and Worker nodes](https://jelastic.com/blog/glassfish-payara-auto-clustering-cloud-hosting/). Number of Worker nodes is defined by *[count](basic-configs/#nodes-definition)* parameter.  
    
 @@@
 ```yaml
@@ -95,9 +99,13 @@ nodes:
 ```
 @@!  
 
-
+### validation 
       
-      
+The validation parameter allows to:  
+  * disable scaling (even for extra layers, for example, for DAS or ProxySQL nodes)
+  * specify max / min number of nodes
+  * specify value for scalingMode
+  * specify the number of nodes in extra layers (only when the cluster is turned on)
  
     
 
