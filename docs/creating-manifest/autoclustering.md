@@ -106,6 +106,44 @@ The validation parameter allows to:
   * specify max / min number of nodes
   * specify value for scalingMode
   * specify the number of nodes in extra layers (only when the cluster is turned on)
+Once the validation parameters were aplied respective environment parameters via jps manifest, you won't be able to change them in the wizard.
  
+Following example shows how to restrict a scaling limit of worker nodes between 3 and 5 for Payara Cluster:  
+
+@@@
+```yaml
+type: install
+name: Validation
+nodes:
+ nodeType: payara
+ cloudlets: 6
+ count: 3
+ validation:
+   minCount: 3
+   maxCount: 5
+ cluster: true
+```
+```json
+{
+  "type": "install",
+  "name": "Validation",
+  "nodes": {
+    "nodeType": "payara",
+    "cloudlets": 6,
+    "count": 3,
+    "validation": {
+      "minCount": 3,
+      "maxCount": 5
+    },
+    "cluster": true
+  }
+}
+```
+@@!  
+
+Respectively trying to decrease below 3 the number of worker nodes in wizard the respective warning will be displayed:  
+
+![validation-min](/img/validation-min.png)
+  
     
 
