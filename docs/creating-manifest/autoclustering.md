@@ -141,7 +141,7 @@ nodes:
 ```
 @@!  
 
-Respectively trying to decrease below 3 the number of worker nodes in wizard the respective warning will be displayed:  
+Respectively trying to decrease below 3 the number of worker nodes in the wizard the corresponding warning will be displayed:  
 
 ![validation-min](/img/validation-min.png)
   
