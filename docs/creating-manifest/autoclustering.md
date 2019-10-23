@@ -102,10 +102,8 @@ nodes:
 ### validation 
       
 The validation parameter allows to:  
-  * disable scaling (even for extra layers, for example, for DAS or ProxySQL nodes)
   * specify max / min number of nodes
   * specify value for scalingMode
-  * specify the number of nodes in extra layers (only when the cluster is turned on)  
     
 Once the validation parameters were aplied to respective environment parameters via jps manifest, you won't be able to change them in the wizard.  
  
