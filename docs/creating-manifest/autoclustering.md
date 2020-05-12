@@ -102,8 +102,8 @@ nodes:
 ### validation 
       
 The validation parameter allows to:  
-  * specify max / min number of nodes
-  * specify value for scalingMode
+  * specify maximum number of nodes in the cluster
+  * specify minimum number of nodes in the cluster  
     
 Once the validation parameters were aplied to respective environment parameters via jps manifest, you won't be able to change them in the wizard.  
  
