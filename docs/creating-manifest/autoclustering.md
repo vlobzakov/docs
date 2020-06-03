@@ -1,8 +1,8 @@
 ## Auto-Clustering
 In Jelastic the following *nodeTypes* can be clusterized with help of built-in **Auto-Сlustering** feature:  
-  * *mysql*, *mariadb*
+  * *mysql*, *mariadb-dockerized*, *postgresql*
   * *glassfish*, *wildfly*, *payara*  
-  * *couchbase* 
+  * *couchbase*, *mongodb-dockerized* 
 
 *Auto-Clustering* can be enabled either using *Auto-Clustering* switch at the dashboard:  
 ![autoclustering-switch](/img/autoclustering-switch.png)  
