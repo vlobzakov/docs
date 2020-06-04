@@ -14,10 +14,14 @@ To enable *Auto-Clustering* the `cluster` parameter is used as:
   
   !!!note  
   
-    * Default topology that will be created for the nodeTypes *mysql* and *mariadb* is **[master-slave](https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/)** replication cluster with 2 nodes of HA ProxySQL load balancer in front of.  
-    * The *wildgly* cluster is created in [Managed Domain Mode](https://jelastic.com/blog/wildfly-managed-domain-in-containers-auto-micro-clustering-and-scaling/) with topology that comrises one Domain Controller node and Worker nodes. Number of Worker nodes is defined by *[count](basic-configs/#nodes-definition)* parameter.  
+    * Default topology that will be created for the nodeTypes *mysql* and *mariadb-dockerized* is **[master-slave](https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/)** replication cluster with 2 nodes of HA ProxySQL load balancer in front of.  
+    * In case of nodeType *postgresql* there is only one topology available - **[master-slave](https://jelastic.com/blog/postgresql-auto-clustering-master-slave-replication/).  
+    * The *wildfly* cluster is created in [Managed Domain Mode](https://jelastic.com/blog/wildfly-managed-domain-in-containers-auto-micro-clustering-and-scaling/) with topology that comrises one Domain Controller node and Worker nodes. Number of Worker nodes is defined by *[count](basic-configs/#nodes-definition)* parameter.  
     * The *payara*/*glassfish* cluster is created with topology that comrises one [DAS node and Worker nodes](https://jelastic.com/blog/glassfish-payara-auto-clustering-cloud-hosting/). Number of Worker nodes is defined by *[count](basic-configs/#nodes-definition)* parameter.  
+    * The *mongodb* cluster is created as **[replica-set](https://jelastic.com/blog/mongodb-replica-set-master-slave-failover/)** with topology that comrises tree nodes one *Primary* and two *Secondary* nodes.      
    
+For example:  
+
 @@@
 ```yaml
 type: install
@@ -58,8 +62,6 @@ nodes:
     * `jps` *[optional]* - overrides default cluster configuration steps with custom ones stated in the jps manifest  
       * `settings` - provides user's configuration parameters to the custom `jps` manifest
       
-
-Auto-Clustering examples.  
 
 *Master-Master* replication topology with ProxySQL node as the entry point:  
   
