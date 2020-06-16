@@ -146,5 +146,26 @@ Respectively trying to decrease below 3 the number of worker nodes in the wizard
 
 ![validation-min](/img/validation-min.png)
   
-    
+  
+## Auto-Clustering Configuration
+
+In this chapter, we consider as an example of how auto-clustering is implemented for popular software stack MySQL in order to provide you with all necessary information to create your own auto-clustering solution of the software stack you want.
+
+ The steps to create own auto-clustering solution are:
+   1. Create cluster configuration file in JSON format e.g. https://github.com/jelastic-jps/mysql-cluster/blob/master/addons/mysql-cluster.json.
+   2. Create a Docker file to build your custom template. e.g.: 
+     
+     FROM DOCKER_BASE:mysqldblayer  
+     LABEL name="MySQL CE"
+     LABEL nodeType=mysql
+     LABEL nodeTypeAlias=mysqlAPP_MAJOR_VERSION 
+     LABEL cluster="https://raw.githubusercontent.com/jelastic-jps/mysql-cluster/master/addons/mysql-cluster.json"  
+     
+   where the `cluster` label must contain a URL to the cluster configuration file.
+   3. Push image to the Docker Hub.
+   4. Publish image as template in JCA.
+   5. Published template with auto-cluster functionality should available at Jelastic Dashboard.
+ 
+ Let's take a closer look at the config file to realize what parameters can be changed if necessary.
+   
 
