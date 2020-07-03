@@ -372,7 +372,7 @@ The new fields are added to the *nodeGroup* settings right after the layer is cr
    
 If auto-clustering was disabled when the layer was being created the switch is not present in the topology wizard, and the cluster parameter will be written as: *"cluster": {"enabled": false}* in the *nodeGroup* settings.
 
-![validation-min](/img/cluster-disabled-by-creation.png)
+![cluster-disabled-by-creation](/img/cluster-disabled-by-creation.png)
   
 ### validation 
       
