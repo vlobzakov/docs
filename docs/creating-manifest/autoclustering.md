@@ -202,17 +202,17 @@ In this chapter, we consider as an example of how auto-clustering is implemented
      LABEL nodeTypeAlias=mysqlAPP_MAJOR_VERSION 
      LABEL cluster="https://raw.githubusercontent.com/jelastic-jps/mysql-cluster/master/addons/mysql-cluster.json"  
      
-   where the `cluster` label is a mandatory parameter that should be added to the Dockerfile and must contain a URL to the cluster configuration file.
-   3. Push image to the Docker Hub.
-   4. Publish image as template in JCA.
-   5. The published template with auto-cluster functionality should be available and may be used at Jelastic Dashboard.
+   where the `cluster` label is a mandatory parameter that should be added to the Dockerfile and must contain a URL to the cluster configuration file.  
+   3. Push image to the Docker Hub.  
+   4. Publish image as template in JCA.  
+   5. The published template with auto-cluster functionality should be available and may be used at Jelastic Dashboard.  
  
  Let's take a closer look at the config file to realize what parameters can be changed if necessary.
 So, a new label `cluster` has been added to dockerized templates, which keeps a link to the auto-clustering config file in *json* format. The config is reloaded every time a template is updated or when re-imported manually.
 Possible values:
   * *false* (default) - clustering is disabled
   * relative path to the label *sourceUrl* (example of sourceUrl: https://raw.githubusercontent.com/jelastic/icons/master/mysql/)
-  * “true” - substitutes the relative path “jelastic/cluster.json” to the label “sourceUrl”
+  * *true* - substitutes the relative path “jelastic/cluster.json” to the label “sourceUrl”
   * full URL to the config file.
 
 Configuration file example:
@@ -323,7 +323,7 @@ The cluster settings can be passed(set up or overridden) to Create/Change topolo
 ```
 
 By default, to enable auto-clustering, a config from a template (stack) is used using custom settings.
-The default cluster config is replaced by the cluster object if the *jps* field is present in it (done for testing).
+The default cluster config is replaced by the cluster object if the *jps* field is present in it (it was done for testing).
 If the cluster option is not specified, and the options `defaultState` or `required` are *true* in the cluster config,  the auto-clustering will be enabled automatically.
 Installing a package with [ON_ENV_INSTALL](https://docs.cloudscripting.com/creating-manifest/basic-configs/#environment-variables) is not performed if its value matches the link in the cluster config.
 
@@ -371,6 +371,8 @@ The new fields are added to the *nodeGroup* settings right after the layer is cr
    All fields in the *nodeGroup* settings (*cluster*, *clusterTemplate*, *scalingMode*, *skipNodeEmails*) can be easily redefined/deleted by the user.
    
 If auto-clustering was disabled when the layer was being created the switch is not present in the topology wizard, and the cluster parameter will be written as: *"cluster": {"enabled": false}* in the *nodeGroup* settings.
+
+![validation-min](/img/cluster-disabled-by-creation.png)
   
 ### validation 
       
@@ -378,7 +380,7 @@ With respect to auto-clustering configuration the *validation* section allows to
   * disable scaling (for example, for DAS nodes)
   * specify max/min number of nodes
   * set min number of cloudlets
-  * specify min number of IPv4 addresses to be attcached
+  * specify min number of IPv4 addresses to be attached
   * specify value for *scalingMode*: NEW/CLONE
   * specify the number of nodes in additional layers (only when the cluster is turned on)
 
