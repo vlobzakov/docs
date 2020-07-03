@@ -368,8 +368,9 @@ The new fields are added to the *nodeGroup* settings right after the layer is cr
 
   !!!note
    
-   All fields in the *nodeGroup* settings (*cluster*, *clusterTemplate*, *scalingMode*, *skipNodeEmails*) can be easily redefined/deleted by the user.
-   
+    All fields in the *nodeGroup* settings (*cluster*, *clusterTemplate*, *scalingMode*, *skipNodeEmails*) can be easily overidden/deleted by the user.
+
+
 If auto-clustering was disabled when the layer was being created the switch is not present in the topology wizard, and the cluster parameter will be written as: *"cluster": {"enabled": false}* in the *nodeGroup* settings.
 
 ![cluster-disabled-by-creation](/img/cluster-disabled-by-creation.png)
@@ -408,3 +409,31 @@ E.g. for MySQL:
 
 In the *validation* main block the default values can be specified for  `minCount`, `maxCount`, `minCloudlets`, `minExtip`, `scalingMode`, `extraNodesCount`. If the `scalingMode` is present in `validation` section the value can't be changed in the wizard.  
 The field `extraNodesCount` can be utilized in auto-clustering only. The all specified fields can be overidden in `rules` section depending on cluster settings.
+
+### adminUrl
+The `adminUrl` can be overidden through the nodeGroup settings that is applied to all nodes of the layer. If settings is deleted the default value is applied.
+
+### isClusterSupport
+The `isClusterSupport` parameter can be overidden through the nodeGroup settings that is applied to all nodes of the layer. If settings is deleted the default value is applied. At the  moment, the standard platform behavior is enabled/disabled  for the templates with label “clusterEnabled = 1” and is used to be able to hide the *Auto-Cluster* field for a DAS node.
+
+### isRedeploySupport
+The [redeploy](https://docs.jelastic.com/container-redeploy/) can be disabled through the *nodeGroup* settings for the layer with parameter `isRedeploySupport`: *false*. It is applicable to the all nodes of the layer. Respectively the Redeploy button gets hidden in the dashboard.
+
+### isDeploySupport
+Deployment can be disabled for a *nodeGroup* via the `isDeploySupport`: *false* parameter.
+You can invoke it through the API method [environment.control.ApplyNodeGroupData](https://docs.jelastic.com/api/#!/api/environment.Control-method-ApplyNodeGroupData). 
+
+For example:  
+
+```
+https://app.jelastic.com/1.0/environment/control/rest/applynodegroupdata?data={"isDeploySupport":false}&envName=env-1&session=1dx1d2eb8c6b29cddfb28cfd4e93f80c15c&nodeGroup=cp
+```
+
+In case deploy is not supported an error code is logged: DEPLOY_IS_NOT_SUPPORTED = 2550.
+
+### isResetServicePassword
+`isResetServicePassword` - hides the password reset button on the UI. Possible values:  
+
+*false* - hides buttons at all levels  
+*NODE* - displays buttons only at the level of the nodes (containers)  
+*NODEGROUP* - displays buttons only at the *nodeGroup* level  
