@@ -114,6 +114,7 @@ The event is executed before changing environment topology via the Jelastic dash
     - `appid` - environment unique appid
     - `nodes` - nodes array with detailed info about the topology change
     - `env` - environment settings, e.g. *engine, ssl, ha, region* etc
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}` parameters are absent
 
 ### onAfterChangeTopology
@@ -127,6 +128,7 @@ The event is executed once the *changeTopology* action is finished.
     - `appid` - environment unique appid
     - `nodes` - nodes array with detailed info about the topology change
     - `env` - environment settings, e.g. *engine, ssl, ha, region* etc
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}`:
     - `result` - result code. The successful action result is *'0"*
     - `envGroups` - environment groups array
@@ -150,6 +152,7 @@ The event is executed before adding new node(s) (i.e. scaling *out*) to the exis
 - `${event.params.}`:
     - `count` - number of nodes that are added
     - `nodeGroup` - node group that is scaled out
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}` parameters are absent
 
 ### onAfterScaleOut
@@ -161,6 +164,7 @@ The event is executed after adding new node(s) to the existing node group. The *
 - `${event.params.}`:
     - `count` - number of nodes that are added
     - `nodeGroup` - node group that is scaled out
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}`:
     - `nodes` - nodes array with detailed info about topology. Explore the full list of available <a href="../placeholders/#node-placeholders" target="_blank">node placeholders</a>.
 
@@ -173,6 +177,7 @@ The event is executed before removing node(s) (i.e. scaling *in*) from the targe
 - `${event.params.}`:
     - `count` - number of nodes that are removed
     - `nodeGroup` - node group that is scaled in
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}`:
     - `nodes` - nodes array with detailed info about topology. Explore the full list of available <a href="../placeholders/#node-placeholders" target="_blank">node placeholders</a>.
 
@@ -185,6 +190,7 @@ The event is executed after scaling *in* the corresponding node group. The *onAf
 - `${event.params.}`:
     - `count` - number of nodes that are removed
     - `nodeGroup` - node group that is scaled in
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}`:
     - `nodes` - nodes array with detailed info about topology. Explore the full list of available <a href="../placeholders/#node-placeholders" target="_blank">node placeholders</a>.
 
@@ -197,6 +203,7 @@ The event is executed before adding new Docker container(s) to the existing node
 - `${event.params.}`:
     - `count` - nodes count which have been added
     - `nodeGroup` - node layer where event is executed
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}`:
     - `nodes` - nodes array which will be added to the environment. All parameters from that array can be used in a same action as placeholders value. For example, placeholder *{event.response.nodes[0].url}* will be an address of first added node.
 
@@ -209,6 +216,7 @@ The event is executed after adding new container(s) to the existing node group. 
 - `${event.params.}`:
     - `nodeGroup` - node layer where event is executed
     - `count` - nodes count which have been added
+    - `auto` *[boolean]* - detects whether autoscaling is enabled or not
 - `${event.response.}`
     - `nodes` - nodes array which was added to the environment. All parameters from that array can be used in a same action as placeholders value. For example, placeholder *{event.response.nodes[0].url}* will be an address of first added node
 
