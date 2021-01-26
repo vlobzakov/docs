@@ -1848,8 +1848,11 @@ where:
 
 ### tooltip
   
-The field represents a question mark icon displaying the message in a popup on hover.
-Could be used inside **compositefield** in case field's **tooltip** property is not enough.   
+The field represents a question mark icon displaying the message in a popup on hover. Message can be an arbitrary text including including an ability to display a graphics element, for example: 
+```
+text: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='314' height='280' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'>* 
+```
+Tooltip be used inside **compositefield** and **list** in case field's **tooltip** properties are not enough.   
 
 Properties:
 
@@ -1948,7 +1951,7 @@ hidden: boolean
 ```  
  where:   
  
-  - `text` [required] - a message to be displayed  
+  - `text` [required] - a message to be displayed   
   -  `x` [optional] - left coordinate of question mark icon in pixels. Applicable only for tooltips with target: label. Defaults to: 3  
   - `y` [optional] - top coordinate of question mark icon in pixels. Applicable only for tooltips with target: label. Defaults to: 1  
   - `target` [optional] - the location where the message text should display. Must be one of the following values:
@@ -2113,6 +2116,256 @@ settings:
 
 Result:  
 ![Tooltip-composit-field](/img/tooltip-composit-field.png)</center>  
+
+  * Tooltips Inside List Field   
+    It is possible provide tooltips for the **list** field values. The tooltips behaviour can be described for the values' tooltips with **tipParams** option:
+    
+    ```
+    tipParams:
+      dismissDelay: 5000
+      showDelay: 100
+      anchor: c
+      text: This toooltip overrides values' tooltips
+   ```
+
+ where:   
+ 
+  - `dismissDelay` [optional] - the delay in milliseconds the tooltip disappear  
+  - `showDelay` [optional] - the delay in milliseconds the tooltip will appear right after the mouse pointer is hovered the value    
+  - `text` [optional] - the message to be displayed overriding tooltip messages of the field *list* values. This value can be either an arbitrary text or a value of key element in localization file. For example `text`: *LT_Application_Title* will output tooltip as the text: *<Hoster name> Application*    
+  - `anchor` [optional] - defines tooltips position relatively to the values of the field *list* 
+
+  * tooltips inside list field with one tooltip for all values  
+  
+@@@
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: create
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the values</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+        text: Tooltip for all values
+      values:        
+        - value: create
+          caption: New
+          tooltip: One
+        - value: start
+          caption: Start
+          tooltip: Two
+        - value: stop
+          caption: Stop
+          tooltip: Three                  
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "create",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the values</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100,
+          "text": "Tooltip for all values"
+        },
+        "values": [
+          {
+            "value": "create",
+            "caption": "New",
+            "tooltip": "One"
+          },
+          {
+            "value": "start",
+            "caption": "Start",
+            "tooltip": "Two"
+          },
+          {
+            "value": "stop",
+            "caption": "Stop",
+            "tooltip": "Three"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+As a result hovering mouse over each value the only the text will appear: *Tooltip for all values*.
+
+    * tooltips inside list field with different tooltips for all values
+  
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: create
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the values</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+      values:        
+        - value: create
+          caption: New
+          tooltip: One
+        - value: start
+          caption: Start
+          tooltip: Two
+        - value: stop
+          caption: Stop
+          tooltip: Three                  
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "create",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the values</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100
+        },
+        "values": [
+          {
+            "value": "create",
+            "caption": "New",
+            "tooltip": "One"
+          },
+          {
+            "value": "start",
+            "caption": "Start",
+            "tooltip": "Two"
+          },
+          {
+            "value": "stop",
+            "caption": "Stop",
+            "tooltip": "Three"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+    * tooltips inside list field with tooltips as localization keys  
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: create
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the values</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+      values:        
+        - value: create
+          caption: New
+          tooltip: LT_Action_CreateEnv
+          anchor: c
+        - value: start
+          caption: Start
+          tooltip: LT_Action_StartEnv
+        - value: stop
+          caption: Stop
+          tooltip: LT_Action_StopEnv
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "create",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the values</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100
+        },
+        "values": [
+          {
+            "value": "create",
+            "caption": "New",
+            "tooltip": "LT_Action_CreateEnv",
+            "anchor": "c"
+          },
+          {
+            "value": "start",
+            "caption": "Start",
+            "tooltip": "LT_Action_StartEnv"
+          },
+          {
+            "value": "stop",
+            "caption": "Stop",
+            "tooltip": "LT_Action_StopEnv"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+This example results in the values are displayed as tooltips from localization file such as:
+```
+    ...
+    LT_Action_CreateEnv                         : "create environment",
+    LT_Action_StartEnv                          : "start environment",
+    LT_Action_StopEnv                           : "stop environment",
+    ...       
+```
+In order to get localization file just add this context to the platform URL: **/locale/lang-en.js**.
 
 
 ## Dynamic filling of the manifest fields
