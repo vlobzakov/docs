@@ -1848,11 +1848,11 @@ where:
 
 ### tooltip
   
-The field represents a question mark icon displaying the message in a popup on hover. Message can be an arbitrary text including including an ability to display a graphics element, for example: 
+The field represents a question mark icon displaying the message in a popup on hover. Message can be an arbitrary text including an ability to display even a graphics element, for example: 
 ```
 text: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='314' height='280' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'>* 
 ```
-Tooltip be used inside **compositefield** and **list** in case field's **tooltip** properties are not enough.   
+Tooltip can be used inside **compositefield** and **list** in case field's **tooltip** properties are not enough.   
 
 Properties:
 
