@@ -507,7 +507,7 @@ The result of the example execution in [console](http://docs.cloudscripting.com/
 [17:43:36 CS.toBase64]: END HANDLE EVENT: application/install
 [17:43:36 CS.toBase64]: END INSTALLATION: CS Placeholders - built-in data processing functions - toBase64  
 ```
-\  
+  
 ### ${\*.fromBase64()} 
 
 Data decoding example from Base64 format to plain text:
