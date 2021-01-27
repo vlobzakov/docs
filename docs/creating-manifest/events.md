@@ -1459,6 +1459,7 @@ onBeforeInit:
 @@!
 >
 -   URL
+
 @@@
 ```yaml
 type: update  
@@ -1484,6 +1485,7 @@ assert: "'${settings.custom_field}' == 'test'"
 @@!
 >
 -   filepath in case the baseUrl was determined
+
 @@@
 ```yaml
 type: update  
@@ -1561,7 +1563,7 @@ onBeforeInit: |
 ```
 @@!
 
-simplified response example:  
+Simplified response example:  
 
 @@@
 ```yaml
@@ -1601,6 +1603,91 @@ onBeforeInit: |
 }
 ```
 @@!
+
+Complex response example which returns quotas for current user account:  
+
+@@@
+```yaml
+type: install
+name: onBeforeInit, Get Quotas example
+
+onBeforeInit: |
+  var MAX_CLOUDLET = "environment.maxcloudletsperrec",
+      SAME_NODES = "environment.maxsamenodescount",
+      MAX_NODES = "environment.maxnodescount",
+      SSL = "environment.jelasticssl.enabled";
+      EXT_IP = "environment.externalip.enabled";
+
+  var max = 10, min = 2, resp, name, value, ssl, extip, extip_markup="", mycloudlets = "", ssl_markup = "", q = jelastic.billing.account.GetQuotas(MAX_NODES + ";" + SAME_NODES + ";" + MAX_CLOUDLET + ";" + SSL + ";" + EXT_IP).array || [];
+
+  for (var i = 0, n = q.length; i < n; i++) {
+    name = q[i].quota.name;
+    value = q[i].value;
+
+    if (name == SSL) {
+      if (value == true) {
+      ssl_markup = "enabled";
+      } else {
+      ssl_markup = "disabled";
+      }
+    }
+
+    if (name == EXT_IP) {
+      if (value == true) {
+      extip_markup = "enabled";
+      } else {
+      extip_markup = "disabled";
+      }
+      continue;
+    }
+    
+      if (name == MAX_CLOUDLET) {
+     mycloudlets = " "+ value;
+      continue;
+    }
+  
+      if (name == SAME_NODES) {
+      same_nodes = ""+ value;
+    }
+    
+  }
+
+  function getVersion() {
+      var version = jelastic.system.service.GetVersion();
+      return version;
+  }
+
+  function getPlatformVersion() {
+      return getVersion().version + "-" + getVersion().build;
+  }
+
+  var platformVersion = getPlatformVersion();
+
+  resp = {result:0, settings: {fields:[]}};
+
+
+      resp.settings.fields.push(
+          {"type": "displayfield", "height": 30, "caption": "Platform Version", "markup": platformVersion},
+          {"type": "displayfield", "height": 30, "caption": "Jelastic SSL", "markup": ssl_markup},
+          {"type": "displayfield", "height": 30, "caption": "Public IP", "markup": extip_markup},
+          {"type": "displayfield", "height": 30, "caption": "Max cloudlets per node", "markup": mycloudlets},
+          {"type": "displayfield", "height": 30, "caption": "Max nodes in layer", "markup": same_nodes}
+      );
+
+  return resp;
+```
+```json
+{
+  "type": "install",
+  "name": "onBeforeInit, Get Quotas example",
+  "onBeforeInit": "var MAX_CLOUDLET = \"environment.maxcloudletsperrec\",\n    SAME_NODES = \"environment.maxsamenodescount\",\n    MAX_NODES = \"environment.maxnodescount\",\n    SSL = \"environment.jelasticssl.enabled\";\n    EXT_IP = \"environment.externalip.enabled\";\n    \n\nvar max = 10, min = 2, resp, name, value, ssl, extip, extip_markup=\"\", mycloudlets = \"\", ssl_markup = \"\", q = jelastic.billing.account.GetQuotas(MAX_NODES + \";\" + SAME_NODES + \";\" + MAX_CLOUDLET + \";\" + SSL + \";\" + EXT_IP).array || [];\n\n\nfor (var i = 0, n = q.length; i < n; i++) {\n  name = q[i].quota.name;\n  value = q[i].value;\n  \n\n  if (name == SSL) {\n    if (value == true) {\n    ssl_markup = \"enabled\";\n    } else {\n    ssl_markup = \"disabled\";\n    }\n  }\n\n\n  if (name == EXT_IP) {\n    if (value == true) {\n    extip_markup = \"enabled\";\n    } else {\n    extip_markup = \"disabled\";\n    }\n    continue;\n  }\n  \n  \n    if (name == MAX_CLOUDLET) {\n   mycloudlets = \" \"+ value;\n    continue;\n  }\n  \n\n    if (name == SAME_NODES) {\n    same_nodes = \"\"+ value;\n  }\n  \n  \n}\n\n\nfunction getVersion() {\n    var version = jelastic.system.service.GetVersion();\n    return version;\n}\n\n\nfunction getPlatformVersion() {\n    return getVersion().version + \"-\" + getVersion().build;\n}\n\n\nvar platformVersion = getPlatformVersion();\n\n\nresp = {result:0, settings: {fields:[]}};\n\n\n    resp.settings.fields.push(\n        {\"type\": \"displayfield\", \"height\": 30, \"caption\": \"Platform Version\", \"markup\": platformVersion},\n        \n        {\"type\": \"displayfield\", \"height\": 30, \"caption\": \"Jelastic SSL\", \"markup\": ssl_markup},\n        \n        {\"type\": \"displayfield\", \"height\": 30, \"caption\": \"Public IP\", \"markup\": extip_markup},\n        \n        {\"type\": \"displayfield\", \"height\": 30, \"caption\": \"Max cloudlets per node\", \"markup\": mycloudlets},\n        \n        {\"type\": \"displayfield\", \"height\": 30, \"caption\": \"Max nodes in layer\", \"markup\": same_nodes}\n        \n    );\n    \n\nreturn resp;"
+}
+```
+@@!
+
+Result:
+![this-placeholder](/img/onbeforeinit-get-quotas-example.png)  
+
   
 - onBeforeInstall:  
 
