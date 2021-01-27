@@ -1339,7 +1339,7 @@ where:
 - `selectFirstAvailable` - displaying a first available region in combo
 - `message` *[optional] [string]* - text to display after hover on disabled regions on expanded combo
 - `hidden` *[optional]*[boolean] - shows/hides field with its label. Default value is *'false'* 
-- `filter` *[optional]:
+- `filter` *[optional]*:
     - `type` - filtering regions by virtualization types in combo [possible options: PVC, PCS_STORAGE, VZ6, VZ7], `vzTypes` is an alias.
     - `vzTypes` - virtualization types
     - `name` *[string]* - filtering regions by name, name's part or expressions. `uniqueName` is an alias
