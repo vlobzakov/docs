@@ -1850,7 +1850,7 @@ where:
   
 The field represents a question mark icon displaying the message in a popup on hover. Message can be an arbitrary text including an ability to display even a graphics element, for example: 
 ```
-text: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='314' height='280' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'>* 
+text: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='270' height='280' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'> 
 ```
 Tooltip can be used inside **compositefield** and **list** in case field's **tooltip** properties are not enough.   
 
@@ -1983,11 +1983,11 @@ In addition to the **anchor** points, the anchor parameter also supports the "**
   - *for target: label:* **bl-t**
   - *for target: side:* **l-r**
 
-Instead of the **config object**, the tooltip can be added as a **string** which represents a default tooltip with custom message to be displayed.  
+Instead of the **config object**, the tooltip can be added as a **string** which represents a default tooltip with a custom message to be displayed. The custom message can be extended with an HTML code, so even graphics elements can be displayed.    
 
 **Examples:**
 
-  * Tooltips (default)  
+  * Tooltip (default)  
 
 @@@
 ```yaml
@@ -2302,6 +2302,7 @@ settings:
 @@!
 
   * tooltips inside **list** field with tooltips as localization keys' values  
+  
 ```yaml
 type: install
 name: Tooltip inside field List
@@ -2389,6 +2390,85 @@ Result:
 ![Tooltip-composit-field](/img/list-field-value-tooltip.png)</center>  
 
 In order to get localization file just add this context to the platform URL: **/locale/lang-en.js**.
+
+  * tooltips inside **list** field with tooltips as HTML code snippet
+  
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: galera
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the MariaDB cluster topology</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+        anchor: l
+      values:        
+        - value: master
+          caption: Master-Master
+          tooltip: <h3>Master-Master with Extra Slaves</h3>Pre-configured replication with two interconnected master databases. While horizontal scaling the cluster is extended with additional slave nodes. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-mm.svg?sanitize=true'>"
+        - value: slave
+          caption: Mater-Slave
+          tooltip: <h3>Master-Slave with Extra Slaves</h3>Pre-configured replication with one master and one slave database. While horizontal scaling the cluster is extended with additional slaves. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-ms.svg?sanitize=true'>
+        - value: galera
+          caption: Galera
+          tooltip: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'> 
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "galera",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the MariaDB cluster topology</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100,
+          "anchor": "l"
+        },
+        "values": [
+          {
+            "value": "master",
+            "caption": "Master-Master",
+            "tooltip": "<h3>Master-Master with Extra Slaves</h3>Pre-configured replication with two interconnected master databases. While horizontal scaling the cluster is extended with additional slave nodes. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-mm.svg?sanitize=true'>\""
+          },
+          {
+            "value": "slave",
+            "caption": "Mater-Slave",
+            "tooltip": "<h3>Master-Slave with Extra Slaves</h3>Pre-configured replication with one master and one slave database. While horizontal scaling the cluster is extended with additional slaves. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-ms.svg?sanitize=true'>"
+          },
+          {
+            "value": "galera",
+            "caption": "Galera",
+            "tooltip": "<h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'>"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+Result:
+
+![Tooltip-composit-field](/img/list-field-value-tooltip-html-snippets.png)</center>  
+
 
 
 ## Dynamic filling of the manifest fields
