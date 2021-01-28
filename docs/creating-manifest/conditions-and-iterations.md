@@ -206,7 +206,7 @@ onInstall:
 
 ### **Else**
 
-In case the conditional statement should be complemented by the opposite comparison and respective action the ***else*** conditional operator can be accommodated.  
+In case the conditional statement should be complemented by the opposite comparison and respective action the ***else*** conditional operator can be accommodated. It is available commencing from Jelastic version 5.7-1 and corresponds to `jpsVersion`: 1.7.1 and higher. In case action applied on versions below the *unknown action* error will be displayed in the console. 
 
 @@@
 ```yaml
