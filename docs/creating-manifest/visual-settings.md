@@ -3009,6 +3009,8 @@ success:
 ```
 @@!
 
+In the last example above, the localization functionality is applied, which depends upon the Jelastic Platform selected language.
+
 Email notification also can be customized in <a href="../handling-custom-responses/">custom responses</a>. In this case `email` value from handle custom response has a higher priority. For example:
 @@@
 ```yaml
@@ -3037,9 +3039,42 @@ success: success!!
 ```
 @@!
 
-In the last example above, the localization functionality is applied, which depends upon the Jelastic Platform selected language.
-
 Custom responses can be returned within <a href="../actions/#return" target="_blank">`return`</a> or <a href="../actions/#script" target="_blank">`script`</a> actions. More details about <a href="../handling-custom-responses/" target="_blank">custom responses here</a>.
+
+### How to disable success text email notification
+
+There are three ways how to email notification can be disabled regarding manifest installation:
+ 1. Do not specify the *success* response block inside a manifest.
+ 2. Specify parameter `email`: **false** inside *success* response block.  
+ 
+@@@
+```yaml
+type: update
+name: Success Text Customization
+
+onInstall:
+  log: success text test 5
+    
+success:
+  text: success message!!!
+  email: false
+```
+```json
+{
+  "type": "update",
+  "name": "Success Text Customization",
+  "onInstall": {
+    "log": "success text test 5"
+  },
+  "success": {
+    "text": "success message!!!",
+    "email": false
+  }
+}
+```
+@@!  
+
+ 3. Do not specify parameter `email` inside *return* action response block.
 
 ## JPS installation without environment  
   
