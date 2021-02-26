@@ -2127,7 +2127,7 @@ Filtering for *targetNodes* is performed by:
 
 * string   
   
-**Object filtering** can be done by *nodeType*, *nodeGroup*, *dockerName* or *dockerTag*.  
+**Object filtering** can be done by *nodeType*, *nodeGroup*, *dockerOs*, *dockerName*, *dockerTag* or *guestOSType*.  
 
 @@@
 ```yaml
@@ -2144,6 +2144,8 @@ targetNodes:
   dockerName:
   - "..."
   dockerTag:
+  - "..."
+  guestOSType:
   - "..."
 
 onInstall:
@@ -2170,7 +2172,10 @@ onInstall:
     ],
     "dockerTag": [
       "..."
-    ]
+    ],
+    "guestOSType": [
+      "..."
+    ]    
   },
   "onInstall": {
     "createFile": {
@@ -2181,6 +2186,21 @@ onInstall:
 }
 ```
 @@!  
+
+ where:   
+ 
+  - `nodeType` [optional] - parameter to specify [software stacks](https://docs.cloudscripting.com/creating-manifest/selecting-containers/#supported-stacks). For Docker containers the nodeType value is docker  
+  - `nodeGroup` [optional] - the defined node layer
+  - `dockerOs` [optional] - OS iso image name
+  - `dockerName` [optional] - name and tag of Docker image
+  - `dockerTag` [optional] -  docker tag for installation
+  - `guestOSType` possible values are:  
+     - LINUX  
+     - WINDOWS2008  
+     - WINDOWS2012  
+     - WINDOWS2016  
+     - WINDOWS2019  
+
 There are two possible ways to define objects as *targetNodes*. E.g. for object *nodeGroup*:   
 First sets the required *nodeGroup* in an array:  
 @@@
