@@ -431,6 +431,213 @@ onInstall:
 ```
 @@!
 
+### Switch
+
+The **switch** statement evaluates an expression, matching the expression's value to a switch's value, and executes actions associated with that value. In other words the **switch** statement is nothing more than a conditional statement that tests whether something is true or false. There are may be several value representations. For example:
+
+@@@
+```yaml
+type: install
+name: "TEST: [CS] - add conditional statement 'switch'"
+
+globals:
+  a: 1
+  b: 2
+  nestedArray:
+    - array : [1, 2, 3]
+  key: 1
+
+onInstall:
+- log: -- positive switch test --
+- switch (globals.a):
+    1:
+      set:
+        positiveSwitch: true
+    2:
+      assert: false
+- assert: "'${this.positiveSwitch}' == 'true'"
+
+- log: -- negative switch test --
+- switch (globals.a):
+    3:
+      set:
+        negativeSwitch: true
+    4:
+      set:
+        negativeSwitch: true
+- assert: "'${this.negativeSwitch}' != 'true'"
+
+- log: -- default switch test --
+- switch (globals.b):
+    3:
+      assert: false
+    default:
+      set:
+        defaultSwitch: true
+- assert: "'${this.defaultSwitch}' == 'true'"
+
+- log: -- placeholders in switch test --
+- switch (${globals.a}):
+    1:
+      set:
+        placeholdersInSwitch: true
+    default:
+      assert: false
+- assert: "'${this.placeholdersInSwitch}' == 'true'"
+
+- log: -- placeholders in case test --
+- switch (1):
+    ${globals.a}:
+      set:
+        placeholdersInCase: true
+    default:
+      assert: false
+- assert: "'${this.placeholdersInCase}' == 'true'"
+
+- log: -- switch for nested array test --
+- switch (globals.nestedArray[0].array[${globals.key}]):
+    2:
+      set:
+        valueByNestedArray: true
+    default:
+      assert: false
+- assert: "'${this.valueByNestedArray}' == 'true'"
+```
+```json
+{
+  "type": "install",
+  "name": "TEST: [CS] - add conditional statement 'switch'",
+  "globals": {
+    "a": 1,
+    "b": 2,
+    "nestedArray": [
+      {
+        "array": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "key": 1
+  },
+  "onInstall": [
+    {
+      "log": "-- positive switch test --"
+    },
+    {
+      "switch (globals.a)": {
+        "1": {
+          "set": {
+            "positiveSwitch": true
+          }
+        },
+        "2": {
+          "assert": false
+        }
+      }
+    },
+    {
+      "assert": "'${this.positiveSwitch}' == 'true'"
+    },
+    {
+      "log": "-- negative switch test --"
+    },
+    {
+      "switch (globals.a)": {
+        "3": {
+          "set": {
+            "negativeSwitch": true
+          }
+        },
+        "4": {
+          "set": {
+            "negativeSwitch": true
+          }
+        }
+      }
+    },
+    {
+      "assert": "'${this.negativeSwitch}' != 'true'"
+    },
+    {
+      "log": "-- default switch test --"
+    },
+    {
+      "switch (globals.b)": {
+        "3": {
+          "assert": false
+        },
+        "default": {
+          "set": {
+            "defaultSwitch": true
+          }
+        }
+      }
+    },
+    {
+      "assert": "'${this.defaultSwitch}' == 'true'"
+    },
+    {
+      "log": "-- placeholders in switch test --"
+    },
+    {
+      "switch (${globals.a})": {
+        "1": {
+          "set": {
+            "placeholdersInSwitch": true
+          }
+        },
+        "default": {
+          "assert": false
+        }
+      }
+    },
+    {
+      "assert": "'${this.placeholdersInSwitch}' == 'true'"
+    },
+    {
+      "log": "-- placeholders in case test --"
+    },
+    {
+      "switch (1)": {
+        "${globals.a}": {
+          "set": {
+            "placeholdersInCase": true
+          }
+        },
+        "default": {
+          "assert": false
+        }
+      }
+    },
+    {
+      "assert": "'${this.placeholdersInCase}' == 'true'"
+    },
+    {
+      "log": "-- switch for nested array test --"
+    },
+    {
+      "switch (globals.nestedArray[0].array[${globals.key}])": {
+        "2": {
+          "set": {
+            "valueByNestedArray": true
+          }
+        },
+        "default": {
+          "assert": false
+        }
+      }
+    },
+    {
+      "assert": "'${this.valueByNestedArray}' == 'true'"
+    }
+  ]
+}
+```
+@@!
+
+
 ## Iterations
 
 ### ForEach
