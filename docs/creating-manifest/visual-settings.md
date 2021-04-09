@@ -1959,7 +1959,7 @@ hidden: boolean
      - `label` - add a question mark icon to the right of the field label, displaying the message in a popup on hover. This is the default  
      - `side` - display a tip containing the message when the field receives focus. The tip is displayed to the right of the field by default (the tip position could be changed using anchor property). Defaults to: label  
   - `minWidth` [optional] - The minimum width of the tip in pixels. Defaults to 45  
-  - `maxWidth` [optional] - The maximum width of the tip in pixel. The maximum supported value is 500. Defaults to 400  
+  - `maxWidth` [optional] - The maximum width of the tip in pixels. The default value is 400  
   - `anchor` [optional] - aligns tooltip with target element (question mark icon or the field itself) relative to the specified anchor points 
   - `hidden` *[optional]*[boolean] - shows/hides tooltip sign. Default value is *'false'* 
     The property sрould be specified as two anchor points separated by a dash. The first value is used as the tooltip's anchor point, and the second value is used as the target's anchor point (question mark icon or the field itself).  
