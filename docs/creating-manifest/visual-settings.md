@@ -1339,7 +1339,7 @@ where:
 - `selectFirstAvailable` - displaying a first available region in combo
 - `message` *[optional] [string]* - text to display after hover on disabled regions on expanded combo
 - `hidden` *[optional]*[boolean] - shows/hides field with its label. Default value is *'false'* 
-- `filter` *[optional]:
+- `filter` *[optional]*:
     - `type` - filtering regions by virtualization types in combo [possible options: PVC, PCS_STORAGE, VZ6, VZ7], `vzTypes` is an alias.
     - `vzTypes` - virtualization types
     - `name` *[string]* - filtering regions by name, name's part or expressions. `uniqueName` is an alias
@@ -1848,16 +1848,19 @@ where:
 
 ### tooltip
   
-The field represents a question mark icon displaying the message in a popup on hover.
-Could be used inside **compositefield** in case field's **tooltip** property is not enough.   
+The field represents a question mark icon displaying the message in a popup on hover. Message can be an arbitrary text including an ability to display even a graphics element, for example: 
+```
+text: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='270' height='280' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'> 
+```
+Tooltip can be used inside **compositefield** and **list** in case field's **tooltip** properties are not enough.   
 
-Properties:
+**Properties:**
 
   - `text` [required] - a message to be displayed
-  - `minWidth` [optional] - The minimum width of the tip in pixels. Defaults to 45
-  - `maxWidth` [optional] - The maximum width of the tip in pixel. The maximum supported value is 500. Defaults to 400.
-  - `anchor` [optional] - aligns tooltip with question mark icon relative to the specified anchor points.  
-    The property sрould be specified as two anchor points separated by a dash. The first value is used as the tooltip's anchor point, and the second value is used as the question mark icon anchor point. Defaults to: **bl-t**.  
+  - `minWidth` [optional] - The minimum width of the tip in pixels. The default is 45  
+  - `maxWidth` [optional] - The maximum width of the tip in pixel. The maximum supported value is 500. The defaults is 400  
+  - `anchor` [optional] - aligns tooltip with question mark icon relative to the specified anchor points  
+    The property should be specified as two anchor points separated by a dash. The first value is used as the tooltip's anchor point, and the second value is used as the question mark icon anchor point. Defaults to: **bl-t**.  
 
 **Available anchor points:**
 
@@ -1873,7 +1876,8 @@ Properties:
 
 In addition to the anchor points, the anchor parameter also supports the "**?**" character. If "*?*" is passed at the end of the position string (e.g. **l-r?**), the element will attempt to align as specified, but the position will be adjusted to constrain to the viewport if necessary. Note that the element being aligned might be swapped to align to a different position than that specified in order to enforce the viewport constraints.  
 
-**Example**  
+**Example:**
+
 @@@
 ```yaml
 type: install
@@ -1932,7 +1936,7 @@ The **tooltip** option is common to all field types:
 tooltip: object/string
 ```
 
-The tooltip for the field. Can be a config object or string.
+The tooltip for the field can be a config object or string.
 
 **Tooltip config object**:  
 
@@ -1948,14 +1952,14 @@ hidden: boolean
 ```  
  where:   
  
-  - `text` [required] - a message to be displayed  
-  -  `x` [optional] - left coordinate of question mark icon in pixels. Applicable only for tooltips with target: label. Defaults to: 3  
+  - `text` [required] - a message to be displayed   
+  - `x` [optional] - left coordinate of question mark icon in pixels. Applicable only for tooltips with target: label. Defaults to: 3  
   - `y` [optional] - top coordinate of question mark icon in pixels. Applicable only for tooltips with target: label. Defaults to: 1  
   - `target` [optional] - the location where the message text should display. Must be one of the following values:
      - `label` - add a question mark icon to the right of the field label, displaying the message in a popup on hover. This is the default  
      - `side` - display a tip containing the message when the field receives focus. The tip is displayed to the right of the field by default (the tip position could be changed using anchor property). Defaults to: label  
   - `minWidth` [optional] - The minimum width of the tip in pixels. Defaults to 45  
-  - `maxWidth` [optional] - The maximum width of the tip in pixel. The maximum supported value is 500. Defaults to 400  
+  - `maxWidth` [optional] - The maximum width of the tip in pixels. The default value is 400  
   - `anchor` [optional] - aligns tooltip with target element (question mark icon or the field itself) relative to the specified anchor points 
   - `hidden` *[optional]*[boolean] - shows/hides tooltip sign. Default value is *'false'* 
     The property sрould be specified as two anchor points separated by a dash. The first value is used as the tooltip's anchor point, and the second value is used as the target's anchor point (question mark icon or the field itself).  
@@ -1979,11 +1983,11 @@ In addition to the **anchor** points, the anchor parameter also supports the "**
   - *for target: label:* **bl-t**
   - *for target: side:* **l-r**
 
-Instead of the **config object**, the tooltip could be added as a **string** which represents a default tooltip with custom message to be displayed.  
+Instead of the **config object**, the tooltip can be added as a **string** which represents a default tooltip with a custom message to be displayed. The custom message can be extended with an HTML code, so even graphics elements can be displayed.    
 
 **Examples:**
 
-  * Tooltips (default)  
+  * Tooltip (default)  
 
 @@@
 ```yaml
@@ -2053,7 +2057,7 @@ settings:
 Result:  
 ![Tooltip-target-side](/img/tooltip-target-side.png)</center>  
 
-  * Tooltips Inside Composite Field   
+  * Tooltips inside **compositefield**   
   
 @@@
 ```yaml
@@ -2113,6 +2117,358 @@ settings:
 
 Result:  
 ![Tooltip-composit-field](/img/tooltip-composit-field.png)</center>  
+
+  * Tooltips inside **list** field   
+    It is possible provide tooltips for the **list** field values. The tooltip behaviour can be described for the values' tooltips with **tipParams** option:
+    
+@@@
+```yaml
+tipParams:
+  dismissDelay: 5000
+  showDelay: 100
+  anchor: l
+  text: This toooltip overrides values' tooltips
+```
+```json
+{
+ "tipParams": {
+   "dismissDelay": 5000,
+   "showDelay": 100,
+   "anchor": "l",
+   "text": "This toooltip overrides values' tooltips"
+  }
+}
+```
+@@!
+
+ where:   
+ 
+  - `dismissDelay` [optional] - the delay in milliseconds after which the tooltip will disappear  
+  - `showDelay` [optional] - the delay in milliseconds the tooltip will appear right after the mouse pointer is hovered the value    
+  - `text` [optional] - the message to be displayed overriding the tooltip messages of the field *list* values. This value can be either an arbitrary text or a value of any key in localization file. For example `text`: *LT_Application_Title* will output tooltip as the text: *<Hoster name> Application*    
+  - `anchor` [optional] - defines tooltips position relatively to the values of the field *list* 
+
+  * tooltips inside **list** field with one tooltip for all values  
+  
+@@@
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: create
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the values</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+        anchor: l
+        text: Tooltip for all values
+      values:        
+        - value: create
+          caption: New
+          tooltip: One
+        - value: start
+          caption: Start
+          tooltip: Two
+        - value: stop
+          caption: Stop
+          tooltip: Three                  
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "create",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the values</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100,
+          "anchor": "l",
+          "text": "Tooltip for all values"
+        },
+        "values": [
+          {
+            "value": "create",
+            "caption": "New",
+            "tooltip": "One"
+          },
+          {
+            "value": "start",
+            "caption": "Start",
+            "tooltip": "Two"
+          },
+          {
+            "value": "stop",
+            "caption": "Stop",
+            "tooltip": "Three"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+As a result hovering mouse over each value the only the text will appear: *Tooltip for all values*.
+
+  * tooltips inside **list** field with different tooltips for all values
+  
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: create
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the values</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+        anchor: l
+      values:        
+        - value: create
+          caption: New
+          tooltip: One
+        - value: start
+          caption: Start
+          tooltip: Two
+        - value: stop
+          caption: Stop
+          tooltip: Three                  
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "create",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the values</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100,
+          "anchor": "l"
+        },
+        "values": [
+          {
+            "value": "create",
+            "caption": "New",
+            "tooltip": "One"
+          },
+          {
+            "value": "start",
+            "caption": "Start",
+            "tooltip": "Two"
+          },
+          {
+            "value": "stop",
+            "caption": "Stop",
+            "tooltip": "Three"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+  * tooltips inside **list** field with tooltips as localization keys' values  
+  
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: create
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the values</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+        anchor: l
+      values:        
+        - value: create
+          caption: New
+          tooltip: LT_Action_CreateEnv
+          anchor: c
+        - value: start
+          caption: Start
+          tooltip: LT_Action_StartEnv
+        - value: stop
+          caption: Stop
+          tooltip: LT_Action_StopEnv
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "create",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the values</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100,
+          "anchor": "l"
+        },
+        "values": [
+          {
+            "value": "create",
+            "caption": "New",
+            "tooltip": "LT_Action_CreateEnv",
+          },
+          {
+            "value": "start",
+            "caption": "Start",
+            "tooltip": "LT_Action_StartEnv"
+          },
+          {
+            "value": "stop",
+            "caption": "Stop",
+            "tooltip": "LT_Action_StopEnv"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+The values that correspond to the used keys in localization file:
+
+```
+    ...
+    LT_Action_CreateEnv                         : "create environment",
+    LT_Action_StartEnv                          : "start environment",
+    LT_Action_StopEnv                           : "stop environment",
+    ...       
+```
+
+Result:  
+![Tooltip-composit-field](/img/list-field-value-tooltip.png)</center>  
+
+In order to get localization file just add this context to the platform URL: **/locale/lang-en.js**.
+
+  * tooltips inside **list** field with tooltips as HTML code snippet
+  
+```yaml
+type: install
+name: Tooltip inside field List
+
+settings:
+  fields:
+    - caption: Action
+      type: list
+      name: envaction
+      default: galera
+      required: true
+      width: 225
+      tooltip: | 
+        <h3>Select one of the MariaDB cluster topology</h3>
+      tipParams:
+        dismissDelay: 5000
+        showDelay: 100
+        anchor: l
+      values:        
+        - value: master
+          caption: Master-Master
+          tooltip: <h3>Master-Master with Extra Slaves</h3>Pre-configured replication with two interconnected master databases. While horizontal scaling the cluster is extended with additional slave nodes. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-mm.svg?sanitize=true'>"
+        - value: slave
+          caption: Mater-Slave
+          tooltip: <h3>Master-Slave with Extra Slaves</h3>Pre-configured replication with one master and one slave database. While horizontal scaling the cluster is extended with additional slaves. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-ms.svg?sanitize=true'>
+        - value: galera
+          caption: Galera
+          tooltip: <h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'> 
+```
+```json
+{
+  "type": "install",
+  "name": "Tooltip inside field List",
+  "settings": {
+    "fields": [
+      {
+        "caption": "Action",
+        "type": "list",
+        "name": "envaction",
+        "default": "galera",
+        "required": true,
+        "width": 225,
+        "tooltip": "<h3>Select one of the MariaDB cluster topology</h3>\n",
+        "tipParams": {
+          "dismissDelay": 5000,
+          "showDelay": 100,
+          "anchor": "l"
+        },
+        "values": [
+          {
+            "value": "master",
+            "caption": "Master-Master",
+            "tooltip": "<h3>Master-Master with Extra Slaves</h3>Pre-configured replication with two interconnected master databases. While horizontal scaling the cluster is extended with additional slave nodes. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-mm.svg?sanitize=true'>\""
+          },
+          {
+            "value": "slave",
+            "caption": "Mater-Slave",
+            "tooltip": "<h3>Master-Slave with Extra Slaves</h3>Pre-configured replication with one master and one slave database. While horizontal scaling the cluster is extended with additional slaves. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-ms.svg?sanitize=true'>"
+          },
+          {
+            "value": "galera",
+            "caption": "Galera",
+            "tooltip": "<h3>Galera Cluster</h3>All servers can accept updates even if being issued concurrently. <img width='270' height='240' src='https://raw.githubusercontent.com/jelastic/icons/master/mariadb/tip-cluster-gl.svg?sanitize=true'>"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+@@!
+
+Result:
+
+![Tooltip-composit-field](/img/list-field-value-tooltip-html-snippets.png)</center>  
+
 
 
 ## Dynamic filling of the manifest fields
@@ -2181,8 +2537,10 @@ onInstall:
 }
 ```
 @@!  
+
 There are two possible ways to define objects as *targetNodes*. E.g. for object *nodeGroup*:   
 First sets the required *nodeGroup* in an array:  
+
 @@@
 ```yaml
 targetNodes: 
@@ -2281,6 +2639,7 @@ onInstall:
 @@!
 
 String filtering example:  
+
 @@@
 ```yaml
 type: update
@@ -2344,6 +2703,7 @@ targetNodes: any
 @@!
 
 If the installation is required to be performed at the environment level avoiding installation on any node despite the *nodeGroup* parameter is defined the special value **none** is used.  
+
 @@@
 ```yaml
 type: update
@@ -2617,6 +2977,7 @@ By default, this menu contains the <b>Uninstall</b> button. The rest of listed a
 The properties used for custom menus are the same as for custom buttons. However, the appropriate *menu* field (instead of *buttons*) should be specified to adjust functionality exactly within the menu list of the Add-ons plank.
 
 Sample to set custom buttons within the menu list of the Add-ons plank.
+
 @@@
 ```yaml
 type: update
@@ -2665,6 +3026,7 @@ menu:
 }
 ```
 @@!
+
 Refer to the *Custom Buttons* section below for a detailed description on the parameters set with the current sample.
 
 ## Custom Buttons
@@ -2682,6 +3044,7 @@ Such buttons execute operations that are predefined within a JPS manifest.
 <b>Templates</b>
 
 Sample to set buttons within the Add-ons plank.
+
 @@@
 ```yaml
 type: update
@@ -2724,6 +3087,7 @@ buttons:
 }
 ```
 @@!
+
 where:
 
 - `buttons` - button parameters array
@@ -2749,6 +3113,7 @@ It will be displayed after clicking the appropriate button for an add-on. Accord
 - `href` *[optional]* - external link that is opened in a new browser tab and is executed only if the *settings* field is absent. In case of *href* execution, an *action* will not be carried out.
 
 Another sample with additional configurations where parameters can be enabled only if the [*settings*](visual-settings/#custom-settings) field is present.
+
 @@@
 ```yaml
 type: update
@@ -2799,6 +3164,7 @@ buttons:
 }
 ```
 @@!
+
 where:
 
 - `settings` - custom form ID. Default is *'main'*.
@@ -2817,6 +3183,7 @@ where:
 Settings section can include a few custom forms. Default settings form ID is *'main'*.
 
 **Example**
+
 @@@
 ```yaml
 type: update
@@ -2974,7 +3341,8 @@ success:
 }
 ```
 @@!
- - message delivered via email notifying about the successful installation
+ - message delivered via email notifying about the successful installation  
+
 @@@
 ```yaml
 type: update
