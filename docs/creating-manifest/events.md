@@ -1357,7 +1357,7 @@ The *onAfterRemoveVolume* event is triggered after removing volumes from Docker 
 
 ### onBeforeInit   
 ### onBeforeInstall   
-It is possible to dynamically fill in the manifest fields using *onBeforeInit* and *onBeforeInstall* events. All of  the JPS manifest fields inside *onBeforeInit* and *onBeforeInstall* can be accessed using **jps** variable.
+It is possible to dynamically fill in the manifest fields using *onBeforeInit* and *onBeforeInstall* events. Both events are applicable to the manifest types **install** and **update**. All of the JPS manifest fields inside *onBeforeInit* and *onBeforeInstall* can be accessed using **jps** variable.
 
 #### onBeforeInit
 The *onBeforeInit* event is executed:   
@@ -1635,6 +1635,82 @@ onBeforeInstall: |
   "onBeforeInstall": "return {result: 0, nodes: jps.nodes.concat({ nodeType: 'nginx', cloudlets: 8})};"}
 ```
 @@!
+
+Another example for *onBeforeInit*:  
+
+@@@
+```yaml
+type: update
+name: onBeforeInstall modification
+
+targetNodes: any
+
+settings:
+  fields:
+    type: string
+    inputType: hidden
+    name: test
+    default: test
+    
+globals:
+  first: jelastic-${fn.random}
+
+onBeforeInstall: |
+  jps.globals.second = '${globals.first}';
+  jps.globals.settingsTest = '${settings.test}';
+  jps.globals.envName = '${env.name:}';
+  jps.globals.targetNodesLength = '${targetNodes.length}';
+  jps.globals.envNodesLength = '${env.nodes.length}';
+  return jps;
+
+onInstall:
+  - assert: "'${env.name:}' != ''"
+  - assert: "'${globals.first}' == '${globals.second}'"
+  - assert: "'${globals.settingsTest}' == 'test'"
+  - assert: "'${globals.envName}' == '${env.name}'"
+  - assert: "'${globals.targetNodesLength}' != '0'"
+  - assert: "'${globals.envNodesLength}' != '0'"
+```
+```json
+{
+  "type": "update",
+  "name": "onBeforeInstall modification",
+  "targetNodes": "any",
+  "settings": {
+    "fields": {
+      "type": "string",
+      "inputType": "hidden",
+      "name": "test",
+      "default": "test"
+    }
+  },
+  "globals": {
+    "first": "jelastic-${fn.random}"
+  },
+  "onBeforeInstall": "jps.globals.second = '${globals.first}';\njps.globals.settingsTest = '${settings.test}';\njps.globals.envName = '${env.name:}';\njps.globals.targetNodesLength = '${targetNodes.length}';\njps.globals.envNodesLength = '${env.nodes.length}';\nreturn jps;\n",
+  "onInstall": [
+    {
+      "assert": "'${env.name:}' != ''"
+    },
+    {
+      "assert": "'${globals.first}' == '${globals.second}'"
+    },
+    {
+      "assert": "'${globals.settingsTest}' == 'test'"
+    },
+    {
+      "assert": "'${globals.envName}' == '${env.name}'"
+    },
+    {
+      "assert": "'${globals.targetNodesLength}' != '0'"
+    },
+    {
+      "assert": "'${globals.envNodesLength}' != '0'"
+    }
+  ]
+}
+```
+
 
 
 ### onBeforeSwapExtDomains
