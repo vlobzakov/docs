@@ -274,6 +274,11 @@ where:
 - `forceSelection` *[optional][boolean]* - *'true'* restricts the selected value to one of the values in the list, *'false'* allows to set arbitrary text into the field. Default value is *' false'*. The *forceSelection* parameter is applied only in case the `editable` parameter was set to 'true', otherwise, it is ignored. See [example](#forceselection)  
 - `dependsOn` *[optional]* - specifies values dependence between two lists by switching the values in one list thus the corresponding values are picked up in another. The values of the lists can be specified in non-strict and strict orders. See [examples](#dependson)  
 
+To perform operations on several values the `multiSelect` option with related parameters should be used:
+
+- `multiSelect` *[optional][boolean]* - provides an ability to choose several environment at once
+- `delimiter` *[optional][string]* - a delimiter character to separate list data items. The default value is a comma ','
+
 #### Advanced Examples
 
 ##### ForceSelection
