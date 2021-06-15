@@ -3012,7 +3012,145 @@ actions:
 
 A dialog with two fields appears before manifest installation, where the **Field 2** is added via *onBeforeInit*.
 
-![onBeforeInit-settings.png](/img/onBeforeInit-settings.png)
+![onBeforeInit-settings](/img/onBeforeInit-settings.png)
+
+Manifest example with several *settings*:
+
+@@@
+```yaml
+type: update
+name: onBeforeInit settings
+targetNodes: any
+
+settings:
+  main: 
+    fields:
+      - type: string
+        caption: Field 1
+        name: field1
+    onBeforeInit: |
+      settings.fields.push({
+        type: "string",
+        caption: "Field 2",
+        name: "field2"
+      });    
+      return settings;   
+
+  settings2:
+    fields:
+      - type: string
+        caption: Field 3
+        name: field3
+    onBeforeInit: |
+      settings.fields.push({
+        type: "string",
+        caption: "Field 4",
+        name: "field4"
+      });    
+      return settings;   
+ 
+  settings3:
+    fields:
+      - type: string
+        caption: Field 5
+        name: field5 
+       
+buttons:
+  - caption: Action 1
+    action: action1
+    settings: main    
+
+  - caption: Action 2
+    action: action2
+    settings: settings2
+
+  - caption: Action 3
+    action: action3
+    settings: settings3
+    
+actions:
+  action1:
+    log: ${settings.field2}    
+
+  action2:
+    log: ${settings.field4}
+
+  action3:
+    log: ${settings.field5}
+```
+```json
+{
+  "type": "update",
+  "name": "onBeforeInit settings",
+  "targetNodes": "any",
+  "settings": {
+    "main": {
+      "fields": [
+        {
+          "type": "string",
+          "caption": "Field 1",
+          "name": "field1"
+        }
+      ],
+      "onBeforeInit": "settings.fields.push({\n  type: \"string\",\n  caption: \"Field 2\",\n  name: \"field2\"\n});    \nreturn settings;   \n"
+    },
+    "settings2": {
+      "fields": [
+        {
+          "type": "string",
+          "caption": "Field 3",
+          "name": "field3"
+        }
+      ],
+      "onBeforeInit": "settings.fields.push({\n  type: \"string\",\n  caption: \"Field 4\",\n  name: \"field4\"\n});    \nreturn settings;   \n"
+    },
+    "settings3": {
+      "fields": [
+        {
+          "type": "string",
+          "caption": "Field 5",
+          "name": "field5"
+        }
+      ]
+    }
+  },
+  "buttons": [
+    {
+      "caption": "Action 1",
+      "action": "action1",
+      "settings": "main"
+    },
+    {
+      "caption": "Action 2",
+      "action": "action2",
+      "settings": "settings2"
+    },
+    {
+      "caption": "Action 3",
+      "action": "action3",
+      "settings": "settings3"
+    }
+  ],
+  "actions": {
+    "action1": {
+      "log": "${settings.field2}"
+    },
+    "action2": {
+      "log": "${settings.field4}"
+    },
+    "action3": {
+      "log": "${settings.field5}"
+    }
+  }
+}
+```
+@@!
+
+The addon installation results in three buttons available in the UI:
+
+![onBeforeInit-3-buttons-addon](/img/onBeforeInit-3-buttons-addon.png)
+
+
 
 ## Success Text Customization
 
