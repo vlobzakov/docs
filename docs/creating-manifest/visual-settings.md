@@ -2918,6 +2918,102 @@ Here, the *main settings* form appears during installation process.
 
 ![settingCustom](/img/SettingsCustom.jpg)
 
+## onBeforeInit settings
+
+**onBeforeInit** can be applied to all settings including the *main settings*. Similar to the [onBeforeInit](https://docs.cloudscripting.com/creating-manifest/events/#onbeforeinit) event, the field value must be a Javascript string or a URL that Javascript returns (URL can be either absolute or relative to [baseUrl](https://docs.cloudscripting.com/creating-manifest/basic-configs/#relative-links)). Inside the Javascript code, global variables are initialized: [jps](https://docs.cloudscripting.com/creating-manifest/events/#accessing-jps-manifest-fields-with-jps-variable) and [settings](https://docs.cloudscripting.com/creating-manifest/visual-settings/#visual-settings). The *jps* variable, like *onBeforeInit* event, allows you to access all the fields of the current manifest. The *settings* variable allows you to access the fields within the context where *onBeforeInit* is specified. The Javascript code should return an object in the format  *{* ***result***: *0*, ***settings***: *{...}}*, and the part of the manifest where the context where *onBeforeInit* is specified, will be replaced with the settings value that was returned from *onBeforeInit*. You can use a shorthand and replace the fields inside the *settings* variable and return the same variable *(* ***return*** *settings; )*.
+
+The *onBeforeInit* event for *main settings* triggers in two cases:   
+
+ - when requesting the *GetAppInfo* method (requested before opening the JPS installation dialog)
+ - when requesting the *GetAppSettings* method (requested when clicking the addon buttons before opening the form)
+
+For all *settings* other than *main*, the *onBeforeInit* is triggered only when *GetAppSettings* is requested.
+
+There will be an object received at the output of *onBeforeInit* without the *onBeforeInit* field itself within the response for the methods *GetAppInfo* and *GetAppSettings*.
+
+The difference from the main *onBeforeInit* event is that when the **Install** method is called, no *onBeforeInit* is triggered for *settings*.
+
+If the main *onBeforeInit* is described within the global scope of the manifest and *onBeforeInit* in the *main settings*, then when *GetAppInfo* is requested, the main *onBeforeInit* is triggered first, and *onBeforeInit* for *main settings* triggers after that.
+
+The GetAppSettings method signature:
+```
+api.marketplace.jps.GetAppSettings(appUniqueName, [settingsId], [lang])
+```
+
+where:
+
+- `appUniqueName` - install addon's ID
+- `settingsId` - settings ID. The default one is *main*
+- `lang` - language ID, used when retrieving content with localization (default value is **en**)
+
+Manifest example with *main settings* only:
+
+@@@
+```yaml
+type: update
+name: onBeforeInit settings
+
+targetNodes: any
+
+settings:
+  fields:
+    - type: string
+      caption: Field 1
+      name: field1
+
+  onBeforeInit: |
+    settings.fields.push({
+      type: "string",
+      caption: "Field 2",
+      name: "field2"
+    });    
+    return settings;
+
+buttons:
+  - caption: Test
+    action: apply
+    settings: main
+
+    
+actions:
+  apply:
+    log: ${settings.field2}
+```
+```json
+    {
+  "type": "update",
+  "name": "onBeforeInit settings",
+  "targetNodes": "any",
+  "settings": {
+    "fields": [
+      {
+        "type": "string",
+        "caption": "Field 1",
+        "name": "field1"
+      }
+    ],
+    "onBeforeInit": "settings.fields.push({\n  type: \"string\",\n  caption: \"Field 2\",\n  name: \"field2\"\n});    \nreturn settings;\n"
+  },
+  "buttons": [
+    {
+      "caption": "Test",
+      "action": "apply",
+      "settings": "main"
+    }
+  ],
+  "actions": {
+    "apply": {
+      "log": "${settings.field2}"
+    }
+  }
+}
+```
+@@!
+
+A dialog with two fields appears before manifest installation, where the **Field 2** is added via *onBeforeInit*.
+
+![onBeforeInit-settings.png](/img/onBeforeInit-settings.png)
+
 ## Success Text Customization
 
 It is possible to customize the *success* text that is displayed upon successful installation either at the Dashboard, or via email notification.
