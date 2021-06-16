@@ -3150,13 +3150,19 @@ The addon installation results in three buttons available in the UI:
 
 ![onBeforeInit-3-buttons-addon](/img/onBeforeInit-3-buttons-addon.png)
 
-When the buttons Action 1 and Action 2 are clicked, the GetAppSettings method is called and the **Retrieving data...** text is displayed before rendering the form:  
+When the buttons **Action 1** and **Action 2** are clicked, the *GetAppSettings* method is called and the **Retrieving data...** text is displayed before rendering the form:  
 
 ![onBeforeInit-retrieving-data](/img/onBeforeInit-retrieving-data.png)
 
-The rendered form comprises two fields, where the Field 2 is added dynamically via onBeforeInit:  
+The rendered form comprises two fields, where the **Field 2** is added dynamically via *onBeforeInit*:  
 
 ![onBeforeInit-2field-rendered-form](/img/onBeforeInit-2field-rendered-form.png)
+
+In case of button **Action 3** is clicked the form is rendered immediately, since the *settings3* doesn't comprise *onBeforeInit*:
+
+![onBeforeInit-action3-rendered-form](/img/onBeforeInit-action3-rendered-form.png)
+
+
 
 
 ## Success Text Customization
